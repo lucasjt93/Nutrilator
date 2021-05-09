@@ -7,7 +7,7 @@ Track your macros and organize your meanplan with this Web app!
 - Select your diet.
 - ✨Magic ✨
 -  Your macros are calculated!
-- 
+
 ## Tech
 
 This web-app is built in Flask and hosted in TBD
