@@ -18,31 +18,82 @@ def register():
         db = get_db()
         error = None
 
-        # Ensure username was submitted
         if not username:
             error = 'Must provide username'
-            flash(error)
-            return redirect(url_for('auth.login'), code=403)
-        # Ensure pass was submitted
         elif not password:
             error = 'Must provide password'
-            flash(error)
-            return redirect(url_for('auth.login'), code=403)
-        # Ensure user is unique
         elif db.execute(
             'SELECT id FROM users WHERE username = ?', (username,)
         ).fetchone() is not None:
             error = f'User {username} is already registered, sorry!'
-            flash(error)
-            return redirect(url_for('auth.login'), code=403)
 
-        if error is not None:
-            # Save user and pass to db
+        if error is None:   # Register the user
             db.execute(
                 'INSERT INTO users (username, password) VALUES (?, ?)',
                 (username, generate_password_hash(password))
             )
             db.commit()
             return redirect(url_for('auth.login'))
+        else:
+            flash(error)
+            return render_template('auth/register.html'), 403
 
     return render_template('auth/register.html')
+
+
+@bp.route('/login', methods=('GET', 'POST'))
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        db = get_db()
+        error = None
+        user = db.execute(
+            'SELECT * FROM users WHERE username = ?', (username,)
+        ).fetchone()
+
+        if user is None:
+            error = 'Incorrect username'
+        elif not check_password_hash(user['password'], password):
+            error = 'Incorrect password'
+
+        if error is None:
+            # First clear the session
+            session.clear()
+            # Remember user logged in
+            session['user_id'] = user['id']
+            return redirect(url_for('index'))
+        else:
+            flash(error)
+            return render_template('auth/login.html'), 403
+
+    return render_template('auth/login.html')
+
+
+@bp.before_app_request
+def load_logged_in_user():
+    user_id = session.get('user_id')
+
+    if user_id is None:
+        g.user = None
+    else:
+        g.user = get_db().execute(
+            'SELECT * FROM user WHERE id = ?', (user_id,)
+        ).fetchone()
+
+
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
+
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+
+    return wrapped_view
