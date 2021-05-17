@@ -3,7 +3,15 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-from flaskr.auth import login_required
-from flaskr.db import get_db
+from Nutrilator.auth import login_required
+from Nutrilator.db import get_db
 
 bp = Blueprint('calculator', __name__)
+
+
+@bp.route('/')
+@login_required
+def index():
+    username = get_db().execute('SELECT username FROM users WHERE id = ?', g.user).fetchone()
+    message = f'Hi {username}'
+    return render_template('Nutrilator/index.html', message=message)
