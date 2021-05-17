@@ -32,4 +32,9 @@ def create_app(test_config=None):
     from . import auth
     app.register_blueprint(auth.bp)
 
+    # Calculator bp
+    from . import calculator
+    app.register_blueprint(calculator.bp)
+    app.add_url_rule('/', endpoint='index')
+
     return app
