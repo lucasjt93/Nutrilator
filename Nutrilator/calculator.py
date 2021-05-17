@@ -12,6 +12,7 @@ bp = Blueprint('calculator', __name__)
 @bp.route('/')
 @login_required
 def index():
-    username = get_db().execute('SELECT username FROM users WHERE id = ?', g.user).fetchone()
-    message = f'Hi {username}'
-    return render_template('Nutrilator/index.html', message=message)
+    username = get_db().execute('SELECT username FROM users WHERE id = ?', (g.user['id'],)).fetchone()
+    print(username)
+    message = f'Hi {username[0]}'
+    return render_template('calculator/index.html', message=message)
