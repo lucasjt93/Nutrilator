@@ -35,6 +35,5 @@ def create_app(test_config=None):
     # Calculator bp
     from . import calculator
     app.register_blueprint(calculator.bp)
-    app.add_url_rule('/', endpoint='index')
 
     return app

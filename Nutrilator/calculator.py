@@ -9,10 +9,10 @@ from Nutrilator.db import get_db
 bp = Blueprint('calculator', __name__)
 
 
-@bp.route('/')
+@bp.route('/calculator')
 @login_required
-def index():
+def calculator():
     username = get_db().execute('SELECT username FROM users WHERE id = ?', (g.user['id'],)).fetchone()
     print(username)
-    message = f'Hi {username[0]}'
-    return render_template('calculator/index.html', message=message)
+    message = f'Hi {username[0]} calculate your macros!'
+    return render_template('calculator/calculator.html', message=message)
