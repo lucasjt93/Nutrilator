@@ -14,8 +14,8 @@ main
     text-align: center;
 }
 
+/* logo.png */
 #logo {
-    /* logo.png */
         width: 40px;
         height: 35px;
         line-height: 0;
@@ -23,8 +23,8 @@ main
         background-color: #eee;
 }
 
+/* Nutrilator brand */
 .fs-4 {
-    /* Nutrilator brand */
     position: absolute;
     padding-left: 10px;
     bottom: 12px;
@@ -32,8 +32,8 @@ main
     font-family: Helvetica;
 }
 
+/* green background for navbar */
 .bg-dark {
-    /* green background for navbar */
     background-color: #28a745!important;
 }
 
@@ -52,4 +52,12 @@ main
     font-family: Helvetica;
     color: green!important;
     padding-top:9px;
+}
+
+/* carousel styling */
+.d-md-block {
+    background: rgba(128, 128, 128, 0.4);
+    width: 100%;
+    left: 0%;
+    font-opacity: 0;
 }
