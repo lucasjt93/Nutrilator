@@ -19,15 +19,20 @@
     </head>
 
     <body>
+    <header class="p-3 bg-dark text-black">
         <nav class="navbar navbar-expand-md navbar-light bg-light border">
-            <a class="navbar-brand" href="#">Nutrilator</a>
+            <a class="navbar-brand" href="#">
+                <img id="logo" src="/static/logo.png">
+                <span class="fs-4">Nutrilator</span>
+            </a>
             <div class="collapse navbar-collapse" id="navbar">
                 {% if g.user %}
                     <ul class="navbar-nav mr-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="#">Calcule your Macros!</a></li>
+                        <li class="nav-item"><a class="nav-link p-2" href="#">Calcule your Macros!</a></li>
+                        <li class="nav-item"><a class="nav-link p-2" href="#">Organize your meals</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto mt-2">
-                        <li><span>{{ g.user['username'] }}</span>
+                        <li class="nav-item"><h1 class="username">Hi, {{ g.user['username'] }}!</h1></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a></li>
                     </ul>
                 {% else %}
@@ -37,7 +42,8 @@
                     </ul>
                 {% endif %}
             </div>
-        </nav>
+            </nav>
+        </header>
 
         {% if get_flashed_messages() %}
             <header>

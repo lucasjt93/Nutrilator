@@ -14,40 +14,42 @@ main
     text-align: center;
 }
 
-.navbar-light .navbar-brand {
-    color: #1e7e34;
+#logo {
+    /* logo.png */
+        width: 40px;
+        height: 35px;
+        line-height: 0;
+        border: 2px solid #000;
+        background-color: #eee;
 }
 
-.navbar-brand {
-    font-size:1.8rem;
+.fs-4 {
+    /* Nutrilator brand */
+    position: absolute;
+    padding-left: 10px;
+    bottom: 12px;
+    font-size:25px;
+    font-family: Helvetica;
 }
 
-.bg-light {
-    background-color: #00800020!important;
-    background-image: url("https://i.pinimg.com/originals/4c/03/d5/4c03d55a9993acde413a058cf13a8670.jpg");
+.bg-dark {
+    /* green background for navbar */
+    background-color: #28a745!important;
 }
 
-.form-control:focus {
-    box-shadow: inset 0 0 0 0.1rem #1e7e34;
-}
-
-.btn-primary {
-    color: #fff;
-    background-color: #1e7e34;
-    border-color: #1d2124;
-}
-
-.btn-primary:hover {
-    color: #fff;
-    background-color: #285a2f;
-    border-color: #1d2124;
-}
-
+/* style of nav bar buttons */
 .navbar-light .navbar-nav .nav-link {
-    color: white;
-    font-size: 1.4rem;
+    color: grey;
+    font-family: Helvetica;
 }
 
-.test {
-    background-color: #00800020!important;
+.navbar-nav.mr-auto.mt-2{
+    padding-left:100px;
+}
+
+.username {
+    font-size:18px;
+    font-family: Helvetica;
+    color: green!important;
+    padding-top:9px;
 }

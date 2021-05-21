@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 
 
 def create_app(test_config=None):
@@ -27,6 +27,11 @@ def create_app(test_config=None):
     # initiate db CLI
     from . import db
     db.init_app(app)
+
+    # Index
+    @app.route("/")
+    def index():
+        return render_template('index.html')
 
     # Auth bp
     from . import auth
