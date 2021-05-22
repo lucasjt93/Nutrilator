@@ -32,11 +32,6 @@ main
     font-family: Helvetica;
 }
 
-/* green background for navbar */
-.bg-dark {
-    background-color: #28a745!important;
-}
-
 /* style of nav bar buttons */
 .navbar-light .navbar-nav .nav-link {
     color: grey;
@@ -56,8 +51,22 @@ main
 
 /* carousel styling */
 .d-md-block {
-    background: rgba(128, 128, 128, 0.4);
-    width: 100%;
-    left: 0%;
-    font-opacity: 0;
+    font-family: Open Sans,sans-serif;
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: initial;
+}
+
+.carouse-inner {
+    max-height: 700px;
+}
+
+.w-100 {
+    max-height: 700px;
+}
+
+.carousel-icons {
+    height: auto;
+    width: auto;
+    padding: 20px;
 }

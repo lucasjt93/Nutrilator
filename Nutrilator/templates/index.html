@@ -14,23 +14,28 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="static/carr_3.jpg" alt="First slide">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Want to have a healthier lifestyle?</h5>
+      <img class="d-block w-100" src="static/carousel.png" alt="First slide">
+      <div class="carousel-caption d-md-block">
+        <img class="carousel-icons" src="static/salad.png">
+        <h3>Want to have a healthier lifestyle?</h3>
         <p>Register for free and start!</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="static/carr_2.jpg" alt="Second slide">
-      <div class="carousel-caption d-none d-md-block">
-          <h5>Macro-calculator</h5>
-          <p>You can calculate your macro intake in whatever timeframe suits you best for your goals.</p>
+      <a href="{{ url_for('calculator.calculator') }}">
+      <img class="d-block w-100" src="static/carousel2.png" alt="Second slide">
+      <div class="carousel-caption d-md-block">
+        <img class="carousel-icons" src="static/calculator.png">
+        <h3>Macro-calculator</h3>
+        <p>You can calculate your macro intake in whatever timeframe suits you best for your goals.</p>
       </div>
+      </a>
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="static/carr_1.jpg" alt="Third slide">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Meals organizer</h5>
+      <img class="d-block w-100" src="static/carousel3.png" alt="Third slide">
+      <div class="carousel-caption d-md-block">
+        <img class="carousel-icons" src="static/dish.png">
+        <h3>Meals organizer</h3>
         <p>It will help you achieve a balanced diet with minimal effort, try it out!</p>
       </div>
     </div>
