@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Nutrilator: Achieve your macros!
+    Achieve your macros!
 {% endblock %}
 
 {% block main %}
@@ -14,12 +14,14 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
+      <a href="{{ url_for('auth.register') }}">
       <img class="d-block w-100" src="static/carousel.png" alt="First slide">
       <div class="carousel-caption d-md-block">
         <img class="carousel-icons" src="static/salad.png">
-        <h3>Want to have a healthier lifestyle?</h3>
+        <h3>Healthier lifestyle</h3>
         <p>Register for free and start!</p>
       </div>
+        </a>
     </div>
     <div class="carousel-item">
       <a href="{{ url_for('calculator.calculator') }}">
@@ -32,12 +34,14 @@
       </a>
     </div>
     <div class="carousel-item">
+      <a href="#">
       <img class="d-block w-100" src="static/carousel3.png" alt="Third slide">
       <div class="carousel-caption d-md-block">
         <img class="carousel-icons" src="static/dish.png">
         <h3>Meals organizer</h3>
         <p>It will help you achieve a balanced diet with minimal effort, try it out!</p>
       </div>
+        </a>
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

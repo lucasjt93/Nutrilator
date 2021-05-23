@@ -57,10 +57,6 @@ main
     bottom: initial;
 }
 
-.carouse-inner {
-    max-height: 700px;
-}
-
 .w-100 {
     max-height: 700px;
 }
@@ -69,4 +65,15 @@ main
     height: auto;
     width: auto;
     padding: 20px;
+}
+
+/* for mobile */
+@media screen and (max-width: 768px) {
+    .carousel-icons {
+        width:45%;
+    }
+
+    .d-md-block {
+    font-size:10px;
+    }
 }
