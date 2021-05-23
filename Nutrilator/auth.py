@@ -63,6 +63,7 @@ def login():
             session.clear()
             # Remember user logged in
             session['user_id'] = user['id']
+            # TODO redirect to user homepage once created
             return redirect(url_for('index'))
         else:
             flash(error, category='error')

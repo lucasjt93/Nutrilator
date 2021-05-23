@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Login
+    Calculator
 {% endblock %}
 
 {% block main %}
 
-    <h2 id="title"class="container p-5" >{{ message }}</h2>
+    <h2 id="title" class="container p-5" >{{ message }}</h2>
     <p class="container p-2">With this user-friendly macro calculator you can achieve
         your optimal macronutrients and calories based on your age, height, weight,
         gender, and activity level.
@@ -17,30 +17,30 @@
             <form class="container p-1" method="post">
                 <div class="form-group">
                     <label for="age">Age</label>
-                    <input type="number" class="form-control" id="age" placeholder="45" min="0" max="120">
+                    <input type="number" class="form-control" id="age" name="age" placeholder="40" min="0" max="120" required>
                 </div>
                 <div class="form-group">
                     <label>Gender</label>
                     <div class="option">
                         <label for="male">Male</label>
-                        <input id="male" type="radio" value="male" name="g" checked>
+                        <input id="male" type="radio" value="male" name="gender" checked>
                     </div>
                     <div class="option">
                         <label for="female">Female</label>
-                        <input id="female" type="radio" value="female" name="g">
+                        <input id="female" type="radio" value="female" name="gender">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="weight">Weight in kg</label>
-                    <input type="number" class="form-control" id="weight" placeholder="70" min="30" max="200">
+                    <input type="number" class="form-control" id="weight" name="weight" placeholder="70" min="30" max="200" required>
                 </div>
                 <div class="form-group">
                     <label for="height">Height in cm</label>
-                    <input type="number" class="form-control" id="height" placeholder="170" min="140" max="250">
+                    <input type="number" class="form-control" id="height" name="height" placeholder="170" min="140" max="250" required>
                 </div>
                 <div class="form-group">
                     <label for="activity">Activity level</label>
-                    <select class="form-control" id="activity">
+                    <select class="form-control" id="activity" name="activity">
                         <option>Sedentary</option>
                         <option>Light - 3 times per week</option>
                         <option>Mid - 5 times per week</option>
@@ -50,14 +50,14 @@
                 </div>
                 <div class="form-group">
                     <label for="Goal">Goal</label>
-                    <select class="form-control" id="Goal">
+                    <select class="form-control" id="goal" name="goal">
                         <option>Lose weight</option>
                         <option>Maintain weight</option>
                         <option>Gain weight</option>
                     </select>
                 </div>
                 <div class="container p-3">
-                    <button type="button" class="btn btn-primary"> Calculate Macros</button>
+                    <button type="submit" class="btn btn-primary"> Calculate Macros</button>
                 </div>
             </form>
         </div>
