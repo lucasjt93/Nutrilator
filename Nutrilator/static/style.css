@@ -76,4 +76,28 @@ main
     .d-md-block {
     font-size:10px;
     }
+
+    h2{
+    font-size: 2rem!important;
+    font-weight: 500!important;
+    }
+}
+
+/* calculator */
+.container-content {
+    display: flex;
+    padding-top: 30px;
+}
+
+h2 {
+    font-weight: 700;
+    letter-spacing: -1.3px;
+    margin-bottom: -30px;
+    color: #555;
+}
+
+#macroFormWrap {
+    padding: 20px!important;
+    background: #f9f9f9!important;
+    margin: 0 -16px!important;
 }
