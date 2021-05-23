@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block main %}
+
+    <p> Your REE is {{ '%.2f'|format(REE) }} </p>
+    <p> Your TDEE is {{ '%.2f'|format(TDEE) }} </p>
+    <p> For loss weight you need {{ '%.2f'|format(weight_loss) }} </p>
+    <p> For gain weight you need {{ '%.2f'|format(weight_gain) }} </p>
+
+{% endblock %}
