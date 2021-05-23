@@ -45,13 +45,21 @@
             </nav>
         </header>
 
-        {% if get_flashed_messages() %}
+        {% if get_flashed_messages(category_filter=["error"]) %}
             <header>
                 <div class="alert alert-danger text-center" role="alert">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                     {{ get_flashed_messages() | join(" ") }}
                 </div>
             </header>
+        {% endif %}
+        {% if get_flashed_messages(category_filter=["message"]) %}
+            <header>
+            <div class="alert alert-primary text-center" role="alert">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ get_flashed_messages() | join(" ") }}
+            </div>
+        </header>
         {% endif %}
 
         <main>

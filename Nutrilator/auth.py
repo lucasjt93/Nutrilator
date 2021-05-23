@@ -33,9 +33,10 @@ def register():
                 (username, generate_password_hash(password))
             )
             db.commit()
+            flash('User correctly registered', category='message')
             return redirect(url_for('auth.login'))
         else:
-            flash(error)
+            flash(error, category='error')
             return render_template('auth/register.html'), 403
 
     return render_template('auth/register.html')
@@ -64,7 +65,7 @@ def login():
             session['user_id'] = user['id']
             return redirect(url_for('index'))
         else:
-            flash(error)
+            flash(error, category='error')
             return render_template('auth/login.html'), 403
 
     return render_template('auth/login.html')
