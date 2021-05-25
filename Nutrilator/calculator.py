@@ -52,9 +52,9 @@ def calculator():
         else:
             TDEE = REE * 1.725
 
-        # determine macros for fat loss
+        # determine kcal for fat loss
         weight_loss = TDEE - (TDEE * .20)
-        # determine macros for build muscle
+        # determine kcal for build muscle
         weight_gain = TDEE + (TDEE * .20)
 
         return render_template(
