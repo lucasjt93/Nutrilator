@@ -3,12 +3,19 @@ function Calculate(){
     let h = document.getElementById('height').value;
     let a = document.getElementById('age').value;
 
+    // Check for completion of required fields
+    if (!w || !h || !a){
+        return document.getElementById('results').innerHTML = 'Make sure all fields are completed!';
+    }
+    // Check sex for calculation
     if (document.getElementById('male').checked){
         var ree = (10 * w + 6.25 * h - 5 * a + 5);
     } else if (document.getElementById('female').checked){
         var ree = (10 * w + 6.25 * h - 5 * a + 161);
     }
+    // Retrieve act level
     let s = document.getElementById('activity').value;
+    // Perform calculation of kcal/day
     if (s == 'Sedentary') {
         var tdee = ree * 1.2;
     }
@@ -21,7 +28,5 @@ function Calculate(){
     else {
         var tdee = ree * 1.725;
     }
-
-    document.getElementById('results').innerHTML = tdee + ' kcal per day';
-
+    return document.getElementById('results').innerHTML = tdee + ' kcal per day';
 }
