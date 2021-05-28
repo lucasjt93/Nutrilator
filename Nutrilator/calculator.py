@@ -17,6 +17,8 @@ def calculator():
     message = f'Hi {username[0]}, calculate your macros!'
 
     if request.method == 'POST':
+        db = get_db()
+
         # define required fields
         required = {
             'age': request.form['age'],
@@ -52,17 +54,21 @@ def calculator():
         else:
             TDEE = REE * 1.725
 
-        # determine kcal for fat loss
-        weight_loss = TDEE - (TDEE * .20)
-        # determine kcal for build muscle
-        weight_gain = TDEE + (TDEE * .20)
+        # save data into db TODO SAVE INTO MACROS TABLE
+        db.execute(
+            'INSERT INTO users_data VALUES (?, ?, ?, ?, ?)',(
+                g.user['id'],
+                required['age'],
+                required['gender'],
+                required['weight'],
+                required['height']
+            )
+        )
 
         return render_template(
             'calculator/results.html',
             TDEE=TDEE,
-            REE=REE,
-            weight_loss=weight_loss,
-            weight_gain=weight_gain
+            REE=REE
         )
 
     return render_template('calculator/calculator.html', message=message)
