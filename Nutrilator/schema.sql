@@ -14,3 +14,12 @@ CREATE TABLE macros(
     fat INTEGER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+CREATE TABLE users_data(
+    user_id INTEGER,
+    age INTEGER NOT NULL,
+    gender TEXT NOT NULL,
+    weight INTEGER NOT NULL,
+    height INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
