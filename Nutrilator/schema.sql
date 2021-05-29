@@ -21,5 +21,7 @@ CREATE TABLE users_data(
     gender TEXT NOT NULL,
     weight INTEGER NOT NULL,
     height INTEGER NOT NULL,
+    goal TEXT NOT NULL,
+    date TEXT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );

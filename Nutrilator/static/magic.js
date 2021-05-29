@@ -2,9 +2,10 @@ function Calculate(){
     let w = document.getElementById('weight').value;
     let h = document.getElementById('height').value;
     let a = document.getElementById('age').value;
+    let g = document.getElementById('goal').value;
 
     // Check for completion of required fields
-    if (!w || !h || !a){
+    if (!w || !h || !a || !g){
         return document.getElementById('results').innerHTML = 'Make sure all fields are completed!';
     }
     // Check sex for calculation
@@ -28,5 +29,13 @@ function Calculate(){
     else {
         var tdee = ree * 1.725;
     }
+
+    if (g == 'Lose weight') {
+        tdee = tdee - (tdee * 0.20);
+    }
+    else if (g == 'Gain weight') {
+        tdee = tdee + (tdee * 0.20);
+    }
+
     return document.getElementById('results').innerHTML = tdee + ' kcal per day';
 }
