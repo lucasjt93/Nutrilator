@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block main %}
+<!-- if not logged in -->
   {% if not g.user %}
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
@@ -54,6 +55,8 @@
       </a>
     </div>
   {% endif %}
+
+<!-- if logged in -->
   {% if g.user %}
      <div class="user_home">
        {% if user_data['goal'] %}
@@ -62,24 +65,28 @@
        <p>Your current weight is: {{ user_data['weight'] }} kg</p>
        <div>
          <h4>These are your macros:</h4>
-         <table class="table">
+         <table class="table table-bordered">
            <thead class="thead-light">
+             <th scope="col">Kcal/day</th>
              <th scope="col">Carbs</th>
              <th scope="col">Proteins</th>
              <th scope="col">Fats</th>
            </thead>
            <tbody>
             <tr>
+              <td>{{ user_macros['tdee'] }}</td>
               <td>{{ user_macros['carbo'] }}</td>
-              <td>{{ user_macros['protein'] }}</td>
+              <td> {{ user_macros['protein'] }}</td>
               <td>{{ user_macros['fat'] }}</td>
             </tr>
            </tbody>
          </table>
        </div>
+       <!-- if user hasnt logged any data to the db -->
+       {% else %}
+         <h3>Welcome {{ g.user['username'] }}, ready to start achieving your goals?</h3>
+         <h5>Start by<a href="{{ url_for('calculator.calculator') }}"> calculating your macros!</a></h5>
        {% endif %}
-       <h3>Welcome {{ g.user['username'] }}, ready to start achieving your goals?</h3>
-       <h5>Start by<a href="{{ url_for('calculator.calculator') }}"> calculating your macros!</a></h5>
      </div>
   {% endif %}
 

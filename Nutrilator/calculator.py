@@ -94,13 +94,6 @@ def calculator():
         )
         db.commit()
 
-        return render_template(
-            'calculator/results.html',
-            TDEE=TDEE,
-            REE=REE,
-            protein=protein,
-            fat=fat,
-            carbo=carbo
-        )
+        return redirect(url_for('index'))
 
     return render_template('calculator/calculator.html', message=message)
