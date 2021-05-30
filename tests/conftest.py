@@ -58,3 +58,4 @@ def auth(client):
     return AuthActions(client)
 
 # TODO create calculator tests
+# TODO create index tests
