@@ -37,7 +37,7 @@ def register():
             return redirect(url_for('auth.login'))
         else:
             flash(error, category='error')
-            return render_template('auth/register.html'), 403
+            return render_template('auth/register.html'), 400
 
     return render_template('auth/register.html')
 
@@ -67,7 +67,7 @@ def login():
             return redirect(url_for('index'))
         else:
             flash(error, category='error')
-            return render_template('auth/login.html'), 403
+            return render_template('auth/login.html'), 400
 
     return render_template('auth/login.html')
 
