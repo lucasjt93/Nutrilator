@@ -1,0 +1,4 @@
+include Nutrilator/schema.sql
+graft Nutrilator/static
+graft Nutrilator/templates
+global-exclude *.pyc
