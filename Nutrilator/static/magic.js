@@ -12,7 +12,7 @@ function Calculate(){
     if (document.getElementById('male').checked){
         var ree = (10 * w + 6.25 * h - 5 * a + 5);
     } else if (document.getElementById('female').checked){
-        var ree = (10 * w + 6.25 * h - 5 * a + 161);
+        var ree = (10 * w + 6.25 * h - 5 * a - 161);
     }
     // Retrieve act level
     let s = document.getElementById('activity').value;

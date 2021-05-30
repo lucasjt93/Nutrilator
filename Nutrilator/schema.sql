@@ -12,6 +12,7 @@ CREATE TABLE macros(
     protein INTEGER NOT NULL,
     carbo INTEGER NOT NULL,
     fat INTEGER NOT NULL,
+    date TEXT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 

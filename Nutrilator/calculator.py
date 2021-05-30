@@ -62,11 +62,9 @@ def calculator():
         elif required['goal'] == 'Gain weight':
             TDEE = TDEE + (TDEE * 0.20)
 
-        print(required)
-        print(timestamp)
-        # save data into db TODO SAVE INTO MACROS TABLE
+        # save user data into db
         db.execute(
-            'INSERT INTO users_data VALUES (?, ?, ?, ?, ?, ?, ?)',(
+            'INSERT INTO users_data VALUES (?, ?, ?, ?, ?, ?, ?)', (
                 g.user['id'],
                 required['age'],
                 required['gender'],
@@ -78,10 +76,31 @@ def calculator():
         )
         db.commit()
 
+        # calculate initial macros per kcal
+        protein = 0.825 * (required['weight']/0.453592)
+        fat = (TDEE * 0.3) / 9
+        carbo = (TDEE - (protein * 4) - (fat * 9)) / 4
+
+        # save macros into db
+        db.execute(
+            'INSERT INTO macros VALUES (?, ?, ?, ?, ?, ?)', (
+                g.user['id'],
+                TDEE,
+                protein,
+                carbo,
+                fat,
+                timestamp
+            )
+        )
+        db.commit()
+
         return render_template(
             'calculator/results.html',
             TDEE=TDEE,
-            REE=REE
+            REE=REE,
+            protein=protein,
+            fat=fat,
+            carbo=carbo
         )
 
     return render_template('calculator/calculator.html', message=message)
