@@ -5,53 +5,82 @@
 {% endblock %}
 
 {% block main %}
-
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <a href="{{ url_for('auth.register') }}">
-      <img class="d-block w-100" src="static/carousel.png" alt="First slide">
-      <div class="carousel-caption d-md-block">
-        <img class="carousel-icons" src="static/salad.png">
-        <h3>Healthier lifestyle</h3>
-        <p>Register for free and start!</p>
+  {% if not g.user %}
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <a href="{{ url_for('auth.register') }}">
+          <img class="d-block w-100" src="static/carousel.png" alt="First slide">
+          <div class="carousel-caption d-md-block">
+            <img class="carousel-icons" src="static/salad.png">
+            <h3>Healthier lifestyle</h3>
+            <p>Register for free and start!</p>
+          </div>
+            </a>
+        </div>
+        <div class="carousel-item">
+          <a href="{{ url_for('calculator.calculator') }}">
+          <img class="d-block w-100" src="static/carousel2.png" alt="Second slide">
+          <div class="carousel-caption d-md-block">
+            <img class="carousel-icons" src="static/calculator.png">
+            <h3>Macro-calculator</h3>
+            <p>You can calculate your macro intake in whatever timeframe suits you best for your goals.</p>
+          </div>
+          </a>
+        </div>
+        <div class="carousel-item">
+          <a href="#">
+          <img class="d-block w-100" src="static/carousel3.png" alt="Third slide">
+          <div class="carousel-caption d-md-block">
+            <img class="carousel-icons" src="static/dish.png">
+            <h3>Food database</h3>
+            <p>It will help you achieve a balanced diet with minimal effort, try it out!</p>
+          </div>
+            </a>
+        </div>
       </div>
-        </a>
-    </div>
-    <div class="carousel-item">
-      <a href="{{ url_for('calculator.calculator') }}">
-      <img class="d-block w-100" src="static/carousel2.png" alt="Second slide">
-      <div class="carousel-caption d-md-block">
-        <img class="carousel-icons" src="static/calculator.png">
-        <h3>Macro-calculator</h3>
-        <p>You can calculate your macro intake in whatever timeframe suits you best for your goals.</p>
-      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
       </a>
     </div>
-    <div class="carousel-item">
-      <a href="#">
-      <img class="d-block w-100" src="static/carousel3.png" alt="Third slide">
-      <div class="carousel-caption d-md-block">
-        <img class="carousel-icons" src="static/dish.png">
-        <h3>Meals organizer</h3>
-        <p>It will help you achieve a balanced diet with minimal effort, try it out!</p>
-      </div>
-        </a>
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
+  {% endif %}
+  {% if g.user %}
+     <div class="user_home">
+       {% if user_data['goal'] %}
+       <h3>Welcome {{ g.user['username'] }}, ready to continue following your goals?</h3>
+       <p>Your current goal is to: {{ user_data['goal'] }}</p>
+       <p>Your current weight is: {{ user_data['weight'] }} kg</p>
+       <div>
+         <h4>These are your macros:</h4>
+         <table class="table">
+           <thead class="thead-light">
+             <th scope="col">Carbs</th>
+             <th scope="col">Proteins</th>
+             <th scope="col">Fats</th>
+           </thead>
+           <tbody>
+            <tr>
+              <td>{{ user_macros['carbo'] }}</td>
+              <td>{{ user_macros['protein'] }}</td>
+              <td>{{ user_macros['fat'] }}</td>
+            </tr>
+           </tbody>
+         </table>
+       </div>
+       {% endif %}
+       <h3>Welcome {{ g.user['username'] }}, ready to start achieving your goals?</h3>
+       <h5>Start by<a href="{{ url_for('calculator.calculator') }}"> calculating your macros!</a></h5>
+     </div>
+  {% endif %}
 
 {% endblock %}

@@ -1,6 +1,8 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, g
+
+from Nutrilator.db import get_db
 
 
 def create_app(test_config=None):
@@ -31,8 +33,17 @@ def create_app(test_config=None):
     # Index
     @app.route("/")
     def index():
-        return render_template('index.html')
+        if g.user:
+            user_data = get_db().execute(
+                'SELECT * FROM users_data WHERE user_id = ? ORDER BY date desc', (g.user['id'],)
+            ).fetchone()
 
+            user_macros = get_db().execute(
+                'SELECT * FROM macros WHERE user_id = ? ORDER BY date desc', (g.user['id'],)
+            ).fetchone()
+            return render_template('index.html', user_data=user_data, user_macros=user_macros)
+        else:
+            return render_template('index.html')
     # Auth bp
     from . import auth
     app.register_blueprint(auth.bp)
