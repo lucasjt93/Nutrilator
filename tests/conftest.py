@@ -56,3 +56,5 @@ class AuthActions(object):
 @pytest.fixture
 def auth(client):
     return AuthActions(client)
+
+# TODO create calculator tests
