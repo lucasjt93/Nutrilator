@@ -1,4 +1,6 @@
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS macros;
+DROP TABLE IF EXISTS users_data;
 
 CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -12,7 +14,6 @@ CREATE TABLE macros(
     protein INTEGER NOT NULL,
     carbo INTEGER NOT NULL,
     fat INTEGER NOT NULL,
-    date TEXT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 

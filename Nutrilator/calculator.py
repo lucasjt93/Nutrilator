@@ -82,17 +82,32 @@ def calculator():
         carbo = (TDEE - (protein * 4) - (fat * 9)) / 4
 
         # save macros into db
-        db.execute(
-            'INSERT INTO macros VALUES (?, ?, ?, ?, ?, ?)', (
-                g.user['id'],
-                TDEE,
-                protein,
-                carbo,
-                fat,
-                timestamp
+        user_macros = get_db().execute(
+            'SELECT * FROM macros WHERE user_id = ?', (g.user['id'],)
+        ).fetchone()
+
+        if not user_macros:
+            db.execute(
+                'INSERT INTO macros VALUES (?, ?, ?, ?, ?)', (
+                    g.user['id'],
+                    TDEE,
+                    protein,
+                    carbo,
+                    fat
+                )
             )
-        )
-        db.commit()
+            db.commit()
+        else:
+            db.execute(
+                'UPDATE macros SET tdee = ?, protein = ?, carbo = ?, fat = ? WHERE user_id = ?', (
+                    TDEE,
+                    protein,
+                    carbo,
+                    fat,
+                    g.user['id']
+                )
+            )
+            db.commit()
 
         return redirect(url_for('index'))
 

@@ -39,7 +39,7 @@ def create_app(test_config=None):
             ).fetchone()
 
             user_macros = get_db().execute(
-                'SELECT * FROM macros WHERE user_id = ? ORDER BY date desc LIMIT 1', (g.user['id'],)
+                'SELECT * FROM macros WHERE user_id = ?', (g.user['id'],)
             ).fetchone()
             return render_template('index.html', user_data=user_data, user_macros=user_macros)
         else:
