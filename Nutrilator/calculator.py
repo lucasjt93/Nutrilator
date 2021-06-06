@@ -5,7 +5,7 @@ from werkzeug.exceptions import abort
 
 from Nutrilator.auth import login_required
 from Nutrilator.db import get_db
-from datetime import date
+from datetime import datetime
 
 bp = Blueprint('calculator', __name__)
 
@@ -16,7 +16,7 @@ def calculator():
     # get username + message
     username = get_db().execute('SELECT username FROM users WHERE id = ?', (g.user['id'],)).fetchone()
     message = f'Hi {username[0]}, calculate your macros!'
-    timestamp = str(date.today())
+    timestamp = str(datetime.now())
 
     if request.method == 'POST':
         db = get_db()
