@@ -81,6 +81,23 @@
             </tr>
            </tbody>
          </table>
+         <!-- weight track chart -->
+         <canvas id="myChart" width="200" height="200"></canvas>
+         <script>
+         var ctx = document.getElementById('myChart');
+         var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: {{ labels | tojson }},
+              datasets: [{
+                label: 'Weight/time',
+                data: {{ data | tojson }},
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+              }]
+            }});
+         </script>
        </div>
        <!-- if user hasnt logged any data to the db -->
        {% else %}

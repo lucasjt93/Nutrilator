@@ -41,7 +41,22 @@ def create_app(test_config=None):
             user_macros = get_db().execute(
                 'SELECT * FROM macros WHERE user_id = ?', (g.user['id'],)
             ).fetchone()
-            return render_template('index.html', user_data=user_data, user_macros=user_macros)
+
+            weight_data = get_db().execute(
+                'SELECT weight, date FROM users_data WHERE user_id = ?', (g.user['id'],)
+            ).fetchall()
+
+            weight_data = [dict(row) for row in weight_data]
+            labels = [weight_data[n]['date'][:10] for n in range(len(weight_data))]
+            data = [weight_data[n]['weight'] for n in range(len(weight_data))]
+
+            return render_template(
+                'index.html',
+                user_data=user_data,
+                user_macros=user_macros,
+                labels=labels,
+                data=data
+            )
         else:
             return render_template('index.html')
 
@@ -49,7 +64,7 @@ def create_app(test_config=None):
     from . import auth
     app.register_blueprint(auth.bp)
 
-    # Calculator bp TODO check how to mantain one row per user for macros/user_data
+    # Calculator bp
     from . import calculator
     app.register_blueprint(calculator.bp)
 
