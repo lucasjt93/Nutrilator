@@ -48,10 +48,10 @@ function Calculate(){
     let carbo = (tdee - (protein * 4) - (fat * 9)) / 4
 
     // Assign to html var
-    html += tdee + ' kcal per day' + '<br/>';
-    html += protein + ' g of protein per day' + '<br/>';
-    html += fat + ' g of fat per day' + '<br/>';
-    html += carbo + ' g of carbos per day' + '<br/>';
+    html += tdee.toFixed(2) + ' kcal per day' + '<br/>';
+    html += protein.toFixed(2) + ' g of protein per day' + '<br/>';
+    html += fat.toFixed(2) + ' g of fat per day' + '<br/>';
+    html += carbo.toFixed(2) + ' g of carbos per day' + '<br/>';
 
     return document.getElementById('results').innerHTML = html;
 }

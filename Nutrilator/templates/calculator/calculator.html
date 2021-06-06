@@ -6,8 +6,8 @@
 
 {% block main %}
 
-    <h2 id="title" class="container p-5" >{{ message }}</h2>
-    <p class="container p-2">With this user-friendly macro calculator you can achieve
+    <h2 id="title" class="display-4 p-3" >{{ message }}</h2>
+    <p class="lead p-2">With this user-friendly macro calculator you can achieve
         your optimal macronutrients and calories based on your age, height, weight,
         gender, and activity level.
         Use this results to track your daily macros in our tracker!</p>
@@ -15,30 +15,30 @@
         <div class="container-content space-bottom">
             <form class="container p-1" method="post">
                 <div class="form-group">
-                    <label for="age">Age</label>
-                    <input type="number" class="form-control" id="age" name="age" placeholder="40" min="0" max="120" required>
+                    <label class="h5" for="age">Age</label>
+                    <input type="number" class="form-control" id="age" name="age" placeholder="40" min="18" max="80" required>
+                </div>
+                <div class="form-check form-check-inline">
+                    <label class="h5">Gender</label>
+                    <div class="btn-group p-1" data-toggle="buttons">
+                        <label class="btn btn-outline-secondary" for="male">
+                            <input hidden id="male" type="radio" value="male" name="gender" checked> Male
+                        </label>
+                        <label class="btn btn-outline-secondary" for="female">
+                            <input hidden id="female" type="radio" value="female" name="gender"> Female
+                        </label>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label>Gender</label>
-                    <div class="option">
-                        <label for="male">Male</label>
-                        <input id="male" type="radio" value="male" name="gender" checked>
-                    </div>
-                    <div class="option">
-                        <label for="female">Female</label>
-                        <input id="female" type="radio" value="female" name="gender">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="weight">Weight in kg</label>
+                    <label class="h5" for="weight">Weight in kg</label>
                     <input type="number" class="form-control" id="weight" name="weight" placeholder="70" min="30" max="200" required>
                 </div>
                 <div class="form-group">
-                    <label for="height">Height in cm</label>
+                    <label class="h5" for="height">Height in cm</label>
                     <input type="number" class="form-control" id="height" name="height" placeholder="170" min="140" max="250" required>
                 </div>
                 <div class="form-group">
-                    <label for="activity">Activity level</label>
+                    <label class="h5" for="activity">Activity level</label>
                     <select class="form-control" id="activity" name="activity">
                         <option>Sedentary</option>
                         <option>Light - 3 times per week</option>
@@ -47,7 +47,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="Goal">Goal</label>
+                    <label class="h5" for="Goal">Goal</label>
                     <select class="form-control" id="goal" name="goal">
                         <option>Lose weight</option>
                         <option>Maintain weight</option>
@@ -55,11 +55,9 @@
                     </select>
                 </div>
                 <div class="container p-3">
-                    <button type="button" class="btn btn-primary" onclick="Calculate()"> Calculate your Macros!</button>
-                    <h3 id="results" class="container p-3"></h3>
-                </div>
-                <div class="container p-1">
-                    <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Start tracking your progress!</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="Calculate()"> Calculate your Macros!</button>
+                    <button type="submit" class="btn btn-outline-primary">Track your progress!</button>
+                    <h4 id="results" class="p-3"></h4>
                 </div>
             </form>
         </div>
