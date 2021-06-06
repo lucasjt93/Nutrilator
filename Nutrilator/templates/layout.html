@@ -31,18 +31,21 @@
                 <img id="logo" src="/static/logo.png">
                 <span class="fs-4">Nutrilator</span>
             </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbar">
                 {% if g.user %}
-                    <ul class="navbar-nav mr-auto mt-2">
-                        <li class="nav-item"><a class="nav-link p-2" href="{{ url_for('calculator.calculator') }}">Calcule your Macros!</a></li>
-                        <li class="nav-item"><a class="nav-link p-2" href="#">Food database</a></li>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('calculator.calculator') }}">Calcule your Macros!</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Food database</a></li>
                     </ul>
-                    <ul class="navbar-nav ml-auto mt-2">
-                        <li class="nav-item"><h1 class="username">Hi, {{ g.user['username'] }}!</h1></li>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><h4 class="username">Hi, {{ g.user['username'] }}!</h4></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a></li>
                     </ul>
                 {% else %}
-                    <ul class="navbar-nav ml-auto mt-2">
+                    <ul class="navbar-nav ml-auto">
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">Register</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Log In</a></li>
                     </ul>

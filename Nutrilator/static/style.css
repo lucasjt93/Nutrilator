@@ -23,25 +23,6 @@ main
         background-color: #eee;
 }
 
-/* Nutrilator brand */
-.fs-4 {
-    position: absolute;
-    padding-left: 10px;
-    bottom: 12px;
-    font-size:25px;
-    font-family: Helvetica;
-}
-
-/* style of nav bar buttons */
-.navbar-light .navbar-nav .nav-link {
-    color: grey;
-    font-family: Helvetica;
-}
-
-.navbar-nav.mr-auto.mt-2{
-    padding-left:100px;
-}
-
 .username {
     font-size:18px;
     font-family: Helvetica;

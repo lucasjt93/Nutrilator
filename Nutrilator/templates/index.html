@@ -60,11 +60,11 @@
   {% if g.user %}
      <div class="user_home">
        {% if user_data['goal'] %}
-       <h3>Welcome {{ g.user['username'] }}, ready to continue following your goals?</h3>
+       <h3 class="p-3">Welcome {{ g.user['username'] }}, ready to continue following your goals?</h3>
        <p>Your current goal is to: {{ user_data['goal'] }}</p>
        <p>Your current weight is: {{ user_data['weight'] }} kg</p>
        <div>
-         <h4>These are your macros:</h4>
+         <h4 class="p-3">These are your macros:</h4>
          <table class="table table-bordered">
            <thead class="thead-light">
              <th scope="col">Kcal/day</th>
@@ -82,10 +82,12 @@
            </tbody>
          </table>
          <!-- weight track chart -->
-         <canvas id="myChart" width="200" height="200"></canvas>
+         <h4 class="p-3">Your progress:</h4>
+         <canvas id="myChart" width="2000" height="500"></canvas>
          <script>
          var ctx = document.getElementById('myChart');
          var chart = new Chart(ctx, {
+            responsive: true,
             type: 'line',
             data: {
               labels: {{ labels | tojson }},
