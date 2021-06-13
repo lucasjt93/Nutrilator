@@ -6,25 +6,41 @@
 
 {% block main %}
 
-    <h2 id="title" class="display-4 p-3" style="color:#249c40">{{ message }}</h2>
-    <p class="lead p-2">With this user-friendly macro calculator you can achieve
-        your optimal macronutrients and calories based on your age, height, weight,
-        gender, and activity level.
-        Use this results to track your daily macros in our tracker!</p>
+    <h2 id="title" class="display-4 p-3" style="color:#249c40">
+        {% if user_data %}
+            {{ messages[1] }}
+        {% else %}
+            {{ messages[0] }}
+        {% endif %}
+    </h2>
+    <p class="lead p-2">
+        {% if user_data %}
+            Keep track of your progress!
+        {% else %}
+            With this user-friendly macro calculator you can achieve
+            your optimal macronutrients and calories based on your age, height, weight,
+            gender, and activity level.
+            Use these results to track your daily macros in our tracker!
+        {% endif %}
+    </p>
     <div class="macroFormWrap">
             <form class="container p-1" method="post">
                 <div class="form-group">
                     <label class="h5" for="age">Age</label>
-                    <input type="number" class="form-control" id="age" name="age" placeholder="Age" min="18" max="80" required>
+                    <input type="number" class="form-control" id="age" name="age" min="18" max="80" required
+                           {% if user_data %} readonly="readonly" placeholder="{{ user_data['age'] }}" value="{{ user_data['age'] }}"
+                           {% else %} placeholder="Age" {% endif %}>
                 </div>
                 <div class="form-check form-check-inline">
                     <label class="h5">Gender</label>
                     <div class="btn-group p-1" data-toggle="buttons">
                         <label class="btn btn-outline-secondary" for="male">
-                            <input hidden id="male" type="radio" value="male" name="gender" checked> Male
+                            <input hidden id="male" type="radio" value="male" name="gender"
+                                   {% if user_data['gender'] == 'male' %} checked {% endif %}> Male
                         </label>
                         <label class="btn btn-outline-secondary" for="female">
-                            <input hidden id="female" type="radio" value="female" name="gender"> Female
+                            <input hidden id="female" type="radio" value="female" name="gender"
+                            {% if user_data['gender'] == 'female' %} checked {% endif %}> Female
                         </label>
                     </div>
                 </div>
@@ -34,7 +50,9 @@
                 </div>
                 <div class="form-group">
                     <label class="h5" for="height">Height in cm</label>
-                    <input type="number" class="form-control" id="height" name="height" placeholder="Height" min="140" max="250" required>
+                    <input type="number" class="form-control" id="height" name="height" placeholder="Height" min="140" max="250" required
+                           {% if user_data %} readonly="readonly" placeholder="{{ user_data['height'] }}" value= "{{ user_data['height'] }}"
+                           {% else %} placeholder="Height" {% endif %}>
                 </div>
                 <div class="form-group">
                     <label class="h5" for="activity">Activity level</label>

@@ -15,7 +15,7 @@ bp = Blueprint('calculator', __name__)
 def calculator():
     # get username + message
     username = get_db().execute('SELECT username FROM users WHERE id = ?', (g.user['id'],)).fetchone()
-    message = f'Hi {username[0]}, calculate your macros!'
+    messages = [f'Hi {username[0]}, calculate your macros!', f'Hi {username[0]}, update your progress!']
     timestamp = str(datetime.now())
 
     if request.method == 'POST':
@@ -36,7 +36,7 @@ def calculator():
             if not v:
                 print(k)
                 flash(f'Missing required field {k}', category="error")
-                return render_template('calculator/calculator.html', message=message), 403
+                return render_template('calculator/calculator.html', messages=messages), 403
 
         # resting energy expenditure (REE)
         if required['gender'] == 'male':
@@ -111,4 +111,9 @@ def calculator():
 
         return redirect(url_for('index'))
 
-    return render_template('calculator/calculator.html', message=message)
+    # User data to determine template
+    user_data = get_db().execute(
+        'SELECT * FROM users_data WHERE user_id = ?', (g.user['id'],)
+    ).fetchone()
+
+    return render_template('calculator/calculator.html', messages=messages, user_data=user_data)
