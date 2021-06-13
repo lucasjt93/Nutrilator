@@ -60,18 +60,20 @@
   {% if g.user %}
      <div class="user_home">
        {% if user_data['goal'] %}
-       <h1 class="display-4 p-3">Welcome {{ g.user['username'] }}, ready to continue following your goals?</h1>
-       <div id="macroFormWrap">
-       <p class="lead">Your current goal is to: {{ user_data['goal'] }}</p>
-       <p class="lead">Your current weight is: {{ user_data['weight'] }} kg</p>
+       <h1 class="display-4 p-3" style="color:#249c40">Welcome {{ g.user['username'] }}, ready to continue following your goals?</h1>
+       <div class="macroFormWrap">
+       <p class="lead">Your current goal is to: <b>{{ user_data['goal'] }}</b></p>
+       <p class="lead">Your current weight is: <b>{{ user_data['weight'] }} kg</b></p>
        <div>
-         <h3 class="p-3">These are your daily macros:</h3>
+         <h3 class="p-3" >These are your daily macros:</h3>
          <table class="table table-bordered">
            <thead class="thead-light">
+           <tr>
              <th scope="col">Kcal</th>
              <th scope="col">Carbs</th>
              <th scope="col">Proteins</th>
              <th scope="col">Fats</th>
+           </tr>
            </thead>
            <tbody>
             <tr>
@@ -106,7 +108,7 @@
        <!-- if user hasnt logged any data to the db -->
        {% else %}
          <h3 class="display-4 p-3">Welcome {{ g.user['username'] }}, ready to start achieving your goals?</h3>
-         <div id="macroFormWrap">
+         <div class="macroFormWrap">
           <h3 class="p-3">Start by<a href="{{ url_for('calculator.calculator') }}"> calculating your macros!</a></h3>
          </div>
        {% endif %}

@@ -3,7 +3,6 @@ function Calculate(){
     let h = document.getElementById('height').value;
     let a = document.getElementById('age').value;
     let g = document.getElementById('goal').value;
-    var html = '';
 
     // Check for completion of required fields
     if (!w || !h || !a || !g){
@@ -47,11 +46,20 @@ function Calculate(){
     let fat = (tdee * 0.3) / 9;
     let carbo = (tdee - (protein * 4) - (fat * 9)) / 4
 
-    // Assign to html var
-    html += tdee.toFixed(2) + ' kcal per day' + '<br/>';
-    html += protein.toFixed(2) + ' g of protein per day' + '<br/>';
-    html += fat.toFixed(2) + ' g of fat per day' + '<br/>';
-    html += carbo.toFixed(2) + ' g of carbos per day' + '<br/>';
+    let tables = '';
 
-    return document.getElementById('results').innerHTML = html;
+    tables +="<tr>" +
+        "<th> TDEE </th>" +
+        "<th> Protein </th>" +
+        "<th> Fat </th>" +
+        "<th> Carbs </th>" +
+        "</tr>" +
+        "<tr>" +
+        "<td>" + tdee.toFixed(2) + "</td>" +
+        "<td>" + protein.toFixed(2) + "</td>" +
+        "<td>" + fat.toFixed(2) + "</td>" +
+        "<td>" + carbo.toFixed(2) + "</td>" +
+        "</tr>";
+
+    return document.getElementById('results').innerHTML = tables;
 }
