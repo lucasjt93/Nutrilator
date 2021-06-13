@@ -35,12 +35,10 @@
                     <label class="h5">Gender</label>
                     <div class="btn-group p-1" data-toggle="buttons">
                         <label class="btn btn-outline-secondary" for="male">
-                            <input hidden id="male" type="radio" value="male" name="gender"
-                                   {% if user_data['gender'] == 'male' %} checked {% endif %}> Male
+                            <input hidden id="male" type="radio" value="male" name="gender" {% if user_data['gender'] == 'male' %} checked {% endif %}> Male
                         </label>
                         <label class="btn btn-outline-secondary" for="female">
-                            <input hidden id="female" type="radio" value="female" name="gender"
-                            {% if user_data['gender'] == 'female' %} checked {% endif %}> Female
+                            <input hidden id="female" type="radio" value="female" name="gender" {% if user_data['gender'] == 'female' %} checked {% endif %}> Female
                         </label>
                     </div>
                 </div>
