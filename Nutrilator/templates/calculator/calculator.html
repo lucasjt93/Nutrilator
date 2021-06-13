@@ -28,7 +28,7 @@
                 <div class="form-group">
                     <label class="h5" for="age">Age</label>
                     <input type="number" class="form-control" id="age" name="age" min="18" max="80" required
-                           {% if user_data %} readonly="readonly" placeholder="{{ user_data['age'] }}" value="{{ user_data['age'] }}"
+                           {% if user_data %} placeholder="{{ user_data['age'] }}" value="{{ user_data['age'] }}"
                            {% else %} placeholder="Age" {% endif %}>
                 </div>
                 <div class="form-check form-check-inline">
@@ -51,7 +51,7 @@
                 <div class="form-group">
                     <label class="h5" for="height">Height in cm</label>
                     <input type="number" class="form-control" id="height" name="height" placeholder="Height" min="140" max="250" required
-                           {% if user_data %} readonly="readonly" placeholder="{{ user_data['height'] }}" value= "{{ user_data['height'] }}"
+                           {% if user_data %} placeholder="{{ user_data['height'] }}" value= "{{ user_data['height'] }}"
                            {% else %} placeholder="Height" {% endif %}>
                 </div>
                 <div class="form-group">
