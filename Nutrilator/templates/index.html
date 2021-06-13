@@ -62,8 +62,9 @@
        {% if user_data['goal'] %}
        <h1 class="display-4 p-3" style="color:#249c40">Welcome {{ g.user['username'] }}, ready to continue following your goals?</h1>
        <div class="macroFormWrap">
-       <p class="lead">Your current goal is to: <b>{{ user_data['goal'] }}</b></p>
-       <p class="lead">Your current weight is: <b>{{ user_data['weight'] }} kg</b></p>
+         <p class="lead">Your current goal is to: <b>{{ user_data['goal'] }}</b></p>
+         <p class="lead">Your current weight is: <b>{{ user_data['weight'] }} kg</b></p>
+         <p class="lead"><b><a href="{{ url_for('calculator.calculator') }}">Update your progress</a></b></p>
        <div>
          <h3 class="p-3" >These are your daily macros:</h3>
          <table class="table table-bordered">
@@ -115,7 +116,13 @@
        {% else %}
          <h3 class="display-4 p-3">Welcome {{ g.user['username'] }}, ready to start achieving your goals?</h3>
          <div class="macroFormWrap">
-          <h3 class="p-3">Start by<a href="{{ url_for('calculator.calculator') }}"> calculating your macros!</a></h3>
+          <h3 class="p-3">Why start counting macros?</h3>
+           <p>Counting macros can help someone make sure they are eating the right ratio of nutrients and maintain a moderate weight.
+           Macronutrients, or “macros,” are proteins, fats, and carbohydrates. They are essential nutrients that provide energy and help keep people healthy.</p>
+           <h3>What are macros?</h3>
+           <p>The three types of macros are fat, protein, and carbohydrates.
+             It is necessary to combine these nutrients in a diet to maintain a person’s health and normal bodily function.</p>
+           <h3 class="p-3"><a href="{{ url_for('calculator.calculator') }}">Start to calculate your macros now!</a></h3>
          </div>
        {% endif %}
      </div>
