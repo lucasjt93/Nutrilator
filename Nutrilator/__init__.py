@@ -30,7 +30,7 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
 
-    # Index view TODO user:index display last foods/days if achieved macro intake
+    # Index view
     @app.route("/")
     def index():
         if g.user:
@@ -68,6 +68,8 @@ def create_app(test_config=None):
     from . import calculator
     app.register_blueprint(calculator.bp)
 
-    # TODO create food database
+    # Food tracker bp
+    from . import foodtracker
+    app.register_blueprint(foodtracker.bp)
 
     return app

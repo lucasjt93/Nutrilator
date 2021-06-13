@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Food tracker
+{% endblock %}
+
+{% block main %}
+    <div class="container p-3">
+        <input type="text" placeholder="Search.." id="foodsearch" onchange="foodSearch(this.value)">
+    </div>
+{% endblock %}

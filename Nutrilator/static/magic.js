@@ -63,3 +63,18 @@ function Calculate(){
 
     return document.getElementById('results').innerHTML = tables;
 }
+
+function foodSearch(food){
+    // deal with the situation where nothing is chosen
+    if (food == "")
+        return;
+
+    // add headers to the request
+    $.ajaxSetup({
+        headers: { 'custom-header': 'some value' }
+    });
+
+    // TODO create a new AJAX object
+    var ajax = new XMLHttpRequest();
+    $.ajax({ dataType: 'json' });
+}
