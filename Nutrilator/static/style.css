@@ -66,6 +66,12 @@ a {
     .display-4{
     font-size:30px;
     }
+
+    .table-responsive {
+    position: relative;
+    margin: auto;
+    width: auto!important;
+}
 }
 
 /* calculator */
@@ -81,4 +87,11 @@ a {
 
 #contresults {
    padding-top: 20px;
+}
+
+/* index chart */
+.table-responsive {
+    position: relative;
+    margin: auto;
+    width: 80vw;
 }
