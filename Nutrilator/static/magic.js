@@ -66,15 +66,24 @@ function Calculate(){
 
 function foodSearch(food){
     // deal with the situation where nothing is chosen
-    if (food == "")
+    if (food == '')
         return;
 
-    // add headers to the request
-    $.ajaxSetup({
-        headers: { 'custom-header': 'some value' }
+
+    // create AJAX
+    var ajax = new XMLHttpRequest();
+    $.ajax({
+        dataType: 'json'
     });
 
-    // TODO create a new AJAX object
-    var ajax = new XMLHttpRequest();
-    $.ajax({ dataType: 'json' });
+    // TODO when the page is loaded, have a callback function fill the td with kcal per selected food
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+        console.log(ajax.response);
+        }
+    };
+
+    // send POST request to backend
+    ajax.open('POST', 'http://127.0.0.1:5000/foodtracker/search', true);
+    ajax.send(food);
 }

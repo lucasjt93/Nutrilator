@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, jsonify, json, g, redirect, render_template, request, url_for
 )
 from werkzeug.exceptions import abort
 
@@ -14,3 +14,12 @@ bp = Blueprint('foodtracker', __name__)
 @login_required
 def foodtracker():
     return render_template('foodtracker/foodtracker.html')
+
+
+@bp.route('/foodtracker/search', methods=('GET', 'POST'))
+def search():
+    #TODO use data to call nutritionix api
+    if request.method == 'POST':
+        data = request.get_data().decode()
+        print(data)
+        return jsonify(data)
