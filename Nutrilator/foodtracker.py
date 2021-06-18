@@ -18,8 +18,13 @@ def foodtracker():
 
 @bp.route('/foodtracker/search', methods=('GET', 'POST'))
 def search():
-    #TODO use data to call nutritionix api
+    # Look up for food in db
     if request.method == 'POST':
         data = request.get_data().decode()
-        print(data)
+
+        # TODO Contact API
+        #try:
+        #    api_key =
+
+
         return jsonify(data)

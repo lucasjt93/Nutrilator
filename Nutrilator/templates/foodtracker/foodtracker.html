@@ -5,8 +5,23 @@
 {% endblock %}
 
 {% block main %}
-    <!-- after finish ajax paste script here so i can call the url_for() jinja function !-->
-    <div class="container p-3">
-        <input type="text" placeholder="Search.." id="foodsearch" onchange="foodSearch(this.value)">
+    <!-- TODO after finish ajax paste script here so i can call the url_for() jinja function -->
+    <h1 class="display-4 p-3" style="color:#249c40">Search our food database!</h1>
+    <div class="macroFormWrap">
+        <div class="container p-3">
+            <input type="text" placeholder="Search..." id="foodsearch" onchange="foodSearch(this.value)">
+        </div>
+        <!-- TODO finish the form for posting in the daily food log -->
+        <form class="container p-1" method="post">
+            <div class="container p-3">
+                <table class="table" id="foodresults"></table>
+            </div>
+            <div>
+                <input type="number" id="gr" class="form-control input-sm" placeholder="Weight in gr">
+                <button type="submit" class="btn btn-secondary">
+                    Add to food log
+                </button>
+            </div>
+        </form>
     </div>
 {% endblock %}

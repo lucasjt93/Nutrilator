@@ -46,9 +46,9 @@ function Calculate(){
     let fat = (tdee * 0.3) / 9;
     let carbo = (tdee - (protein * 4) - (fat * 9)) / 4
 
-    let tables = '';
+    let table = '';
 
-    tables +="<tr>" +
+    table +="<tr>" +
         "<th> TDEE </th>" +
         "<th> Protein </th>" +
         "<th> Fat </th>" +
@@ -61,7 +61,7 @@ function Calculate(){
         "<td>" + carbo.toFixed(2) + "</td>" +
         "</tr>";
 
-    return document.getElementById('results').innerHTML = tables;
+    return document.getElementById('results').innerHTML = table;
 }
 
 function foodSearch(food){
@@ -80,6 +80,22 @@ function foodSearch(food){
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
         console.log(ajax.response);
+        // food search results table
+        let tables = '';
+        tables +="<tr>" +
+        "<th> Food </th>" +
+        "<th> Kcal </th>" +
+        "<th> Carbs </th>" +
+        "<th> Protein </th>" +
+        "<th> Fats </th>" +
+        "<tr>" +
+        "<td>" + ajax.response + "</td>" +
+        "<td>" + ajax.response + "</td>" +
+        "<td>" + ajax.response + "</td>" +
+        "<td>" + ajax.response + "</td>" +
+        "<td>" + ajax.response + "</td>" +
+        "</tr>";
+        return document.getElementById('foodresults').innerHTML = tables;
         }
     };
 
