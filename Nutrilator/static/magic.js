@@ -82,12 +82,7 @@ function foodSearch(food){
         console.log(ajax.response);
         // food search results table
         let tables = '';
-        tables +="<tr>" +
-        "<th> Food </th>" +
-        "<th> Kcal </th>" +
-        "<th> Carbs </th>" +
-        "<th> Protein </th>" +
-        "<th> Fats </th>" +
+        tables +=
         "<tr>" +
         "<td>" + ajax.response + "</td>" +
         "<td>" + ajax.response + "</td>" +

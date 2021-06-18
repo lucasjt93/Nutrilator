@@ -81,6 +81,9 @@ def load_logged_in_user():
         g.user = get_db().execute(
             'SELECT * FROM users WHERE id = ?', (user_id,)
         ).fetchone()
+        g.macros = get_db().execute(
+            'SELECT * FROM macros WHERE user_id = ?', (user_id,)
+        ).fetchone()
 
 
 @bp.route('/logout')
