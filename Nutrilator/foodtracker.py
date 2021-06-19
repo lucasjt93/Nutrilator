@@ -40,7 +40,7 @@ def search():
                 data=json.dumps(json_data)
             )
         except requests.RequestException:
-            return None
+            return jsonify(None)
 
         # Parse response
         try:

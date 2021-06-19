@@ -5,7 +5,58 @@
 {% endblock %}
 
 {% block main %}
-    <!-- TODO after finish ajax paste script here so i can call the url_for() jinja function -->
+    <!-- Ajax to backend -->
+    <script>
+        function foodSearch(food){
+            // deal with the situation where nothing is chosen
+            if (food == '')
+                return;
+
+
+            // create AJAX
+            var ajax = new XMLHttpRequest();
+            $.ajax({
+                dataType: 'json'
+            });
+
+            ajax.onreadystatechange = function() {
+                if (ajax.readyState == 4 && ajax.status == 200) {
+                const response = JSON.parse(ajax.response)
+
+                // food search results table
+                let tables = ' ';
+
+                // if response is null
+                if (response == null) {
+                    return document.getElementById('foodresults').innerHTML = tables;
+                }
+
+                // parse response to html
+                tables +=
+                "<tr>" +
+                "<td>" + response.name + "</td>" +
+                "<input hidden name='name' value=" + response.name +">" +
+                "<td>" + response.weight + " gr</td>" +
+                "<input hidden name='weight' value=" + response.weight +">" +
+                "<td>" + response.kcal + "</td>" +
+                "<input hidden name='kcal' value=" + response.kcal +">" +
+                "<td>" + response.carbs + " gr</td>" +
+                "<input hidden name='carbs' value=" + response.carbs +">" +
+                "<td>" + response.protein + " gr</td>" +
+                "<input hidden name='protein' value=" + response.protein +">" +
+                "<td>" + response.fat + " gr</td>" +
+                "<input hidden name='fat' value=" + response.fat +">" +
+                "</tr>";
+                return document.getElementById('foodresults').innerHTML = tables;
+                }
+            };
+
+            // send POST request to backend
+            ajax.open('POST', '{{ url_for('foodtracker.search') }}', true);
+            ajax.send(food);
+        }
+    </script>
+
     <h1 class="display-4 p-3" style="color:#249c40">Search our food database!</h1>
     <div class="macroFormWrap">
         <div class="container p-3">
@@ -16,7 +67,6 @@
         <div class="container p-3">
             <input class="form-control input-sm" type="text" placeholder="Search..." id="foodsearch" onchange="foodSearch(this.value)">
         </div>
-        <!-- TODO finish the form for posting in the daily food log -->
         <form class="container p-3" method="post">
             <div class="container p-3 table-responsive">
                 <table class="table table-bordered" id="foodtable">
@@ -36,8 +86,8 @@
             </div>
             <p class="lead" id="notfound"></p>
             <div class="container p-3">
-                <!-- TODO make the food_weight modify the table with results -->
-                <input type="number" name="food_weight" class="form-control input-sm" placeholder="Weight in gr">
+                <!-- TODO create table containing food log and post the form there -->
+                <input type="number" name="quantity" class="form-control input-sm" placeholder="Quantity of servings">
                 <button type="submit" class="btn btn-secondary btn-sm">
                     Add to food log
                 </button>
