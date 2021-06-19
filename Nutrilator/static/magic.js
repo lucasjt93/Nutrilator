@@ -76,19 +76,26 @@ function foodSearch(food){
         dataType: 'json'
     });
 
-    // TODO when the page is loaded, have a callback function fill the td with kcal per selected food
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
-        console.log(ajax.response);
+        const response = JSON.parse(ajax.response)
+
         // food search results table
         let tables = '';
         tables +=
         "<tr>" +
-        "<td>" + ajax.response + "</td>" +
-        "<td>" + ajax.response + "</td>" +
-        "<td>" + ajax.response + "</td>" +
-        "<td>" + ajax.response + "</td>" +
-        "<td>" + ajax.response + "</td>" +
+        "<td>" + response.name + "</td>" +
+        "<input hidden name='name' value=" + response.name +">" +
+        "<td>" + response.weight + " gr</td>" +
+        "<input hidden name='weight' value=" + response.weight +">" +
+        "<td>" + response.kcal + "</td>" +
+        "<input hidden name='kcal' value=" + response.kcal +">" +
+        "<td>" + response.carbs + " gr</td>" +
+        "<input hidden name='carbs' value=" + response.carbs +">" +
+        "<td>" + response.protein + " gr</td>" +
+        "<input hidden name='protein' value=" + response.protein +">" +
+        "<td>" + response.fat + " gr</td>" +
+        "<input hidden name='fat' value=" + response.fat +">" +
         "</tr>";
         return document.getElementById('foodresults').innerHTML = tables;
         }
@@ -98,3 +105,5 @@ function foodSearch(food){
     ajax.open('POST', 'http://127.0.0.1:5000/foodtracker/search', true);
     ajax.send(food);
 }
+
+// TODO create function to multiply results per food weight on input food_weight change and uses foodsearch as callback

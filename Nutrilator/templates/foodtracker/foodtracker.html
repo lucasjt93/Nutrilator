@@ -9,8 +9,8 @@
     <h1 class="display-4 p-3" style="color:#249c40">Search our food database!</h1>
     <div class="macroFormWrap">
         <div class="container p-3">
-            <p class="lead">Daily kcal goal: <b>{{ g.macros['tdee'] | round }}</b></p>
-            <p class="lead">Remaining: <b>s</b></p>
+            <p class="lead">Daily goal: <b>{{ g.macros['tdee'] | round }} kcal</b></p>
+            <p class="lead">Remaining: <b>n kcal</b></p>
         </div>
         <h3 class="p-3" >Food database:</h3>
         <div class="container p-3">
@@ -23,18 +23,21 @@
                     <thead class="thead-light">
                         <tr>
                             <th> Food </th>
+                            <th> Serving size </th>
                             <th> Kcal </th>
                             <th> Carbs </th>
                             <th> Protein </th>
                             <th> Fats </th>
                         </tr>
                     </thead>
-                    <tbody  id="foodresults">
+                    <tbody id="foodresults">
                     </tbody>
                 </table>
             </div>
+            <p class="lead" id="notfound"></p>
             <div class="container p-3">
-                <input type="number" id="gr" class="form-control input-sm" placeholder="Weight in gr">
+                <!-- TODO make the food_weight modify the table with results -->
+                <input type="number" name="food_weight" class="form-control input-sm" placeholder="Weight in gr">
                 <button type="submit" class="btn btn-secondary btn-sm">
                     Add to food log
                 </button>
