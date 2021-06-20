@@ -37,7 +37,7 @@ CREATE TABLE food_logs(
     food_kcal INTEGER NOT NULL,
     food_carbs INTEGER NOT NULL,
     food_protein INTEGER NOT NULL,
-    food_fats INTEGER NOT NULL,
+    food_fat INTEGER NOT NULL,
     quantity INTEGER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );

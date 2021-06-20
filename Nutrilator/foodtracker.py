@@ -8,7 +8,7 @@ import requests
 
 from Nutrilator.auth import login_required
 from Nutrilator.db import get_db
-from datetime import datetime
+from datetime import date
 
 bp = Blueprint('foodtracker', __name__)
 
@@ -16,6 +16,50 @@ bp = Blueprint('foodtracker', __name__)
 @bp.route('/foodtracker', methods=('GET', 'POST'))
 @login_required
 def foodtracker():
+    if request.method == 'POST':
+        db = get_db()
+
+        # Retrieve form data from request
+        try:
+            food_data = {
+                'food_name': str(request.form['name']),
+                'food_weight': float(request.form['weight']),
+                'food_kcal': float(request.form['kcal']),
+                'food_carbs': float(request.form['carbs']),
+                'food_protein': float(request.form['protein']),
+                'food_fat': float(request.form['fat']),
+                'quantity': request.form['quantity']
+            }
+        # if no data selected
+        except:
+            flash('Select a food from the database', category='error')
+            return render_template('foodtracker/foodtracker.html')
+
+        # If quantity is not submitted
+        if not food_data['quantity']:
+            food_data['quantity'] = 1
+
+        # Retrieve date from datetime api
+        today = date.today()
+
+        # Save into db
+        db.execute(
+            'INSERT INTO food_logs VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', (
+                g.user['id'],
+                today,
+                food_data['food_name'],
+                food_data['food_weight'],
+                food_data['food_kcal'],
+                food_data['food_carbs'],
+                food_data['food_protein'],
+                food_data['food_fat'],
+                food_data['quantity']
+            )
+        )
+        db.commit()
+
+        return redirect(url_for('index'))
+
     return render_template('foodtracker/foodtracker.html')
 
 
