@@ -18,6 +18,10 @@ a {
     color:#48b361;
 }
 
+.btn {
+    background-color:#ff9d5c;
+}
+
 /* logo.png */
 #logo {
         width: 30px;
@@ -96,6 +100,14 @@ a {
 #quantity {
     top: 3px!important;
     position: relative
+}
+
+.btn-outline-secondary {
+    background-color: white;
+}
+
+.btn-outline-secondary:not(:disabled):not(.disabled).active, .btn-outline-secondary:not(:disabled):not(.disabled):active, .show>.btn-outline-secondary.dropdown-toggle {
+    background-color: #ff9d5c;
 }
 
 /* index chart */

@@ -48,7 +48,7 @@ function Calculate(){
 
     let table = '';
 
-    table +="<tr>" +
+    table +="<tr class='table-success'>" +
         "<th> TDEE </th>" +
         "<th> Protein </th>" +
         "<th> Fat </th>" +
