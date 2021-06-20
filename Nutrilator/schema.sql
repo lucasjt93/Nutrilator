@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS macros;
 DROP TABLE IF EXISTS users_data;
+DROP TABLE IF EXISTS food_logs;
 
 CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,5 +26,18 @@ CREATE TABLE users_data(
     height INTEGER NOT NULL,
     goal TEXT NOT NULL,
     date TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE food_logs(
+    user_id INTEGER,
+    date TEXT NOT NULL,
+    food_name TEXT NOT NULL,
+    food_weight INTEGER NOT NULL,
+    food_kcal INTEGER NOT NULL,
+    food_carbs INTEGER NOT NULL,
+    food_protein INTEGER NOT NULL,
+    food_fats INTEGER NOT NULL,
+    quantity INTEGER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
