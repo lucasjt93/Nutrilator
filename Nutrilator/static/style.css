@@ -93,6 +93,11 @@ a {
    padding-top: 20px;
 }
 
+#quantity {
+    top: 3px!important;
+    position: relative
+}
+
 /* index chart */
 .table-responsive {
     position: relative;

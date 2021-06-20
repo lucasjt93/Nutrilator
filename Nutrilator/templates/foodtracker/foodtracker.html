@@ -31,21 +31,33 @@
                     return document.getElementById('foodresults').innerHTML = tables;
                 }
 
+                // retrieve quantity of serving
+                let qt = document.getElementById('quantity').value
+                if (!qt || qt < 0) {
+                    qt = 1;
+                }
+
+                // adjust result
+                function adjust(attribute, qty) {
+                    attribute = attribute * qty
+                    return attribute
+                }
+
                 // parse response to html
                 tables +=
                 "<tr>" +
                 "<td>" + response.name + "</td>" +
                 "<input hidden name='name' value=" + response.name +">" +
-                "<td>" + response.weight + " gr</td>" +
-                "<input hidden name='weight' value=" + response.weight +">" +
-                "<td>" + response.kcal + "</td>" +
-                "<input hidden name='kcal' value=" + response.kcal +">" +
-                "<td>" + response.carbs + " gr</td>" +
-                "<input hidden name='carbs' value=" + response.carbs +">" +
-                "<td>" + response.protein + " gr</td>" +
-                "<input hidden name='protein' value=" + response.protein +">" +
-                "<td>" + response.fat + " gr</td>" +
-                "<input hidden name='fat' value=" + response.fat +">" +
+                "<td>" + adjust(response.weight, qt) + " gr</td>" +
+                "<input hidden name='weight' value=" + adjust(response.weight, qt) +">" +
+                "<td>" + adjust(response.kcal, qt) + "</td>" +
+                "<input hidden name='kcal' value=" + adjust(response.kcal, qt) +">" +
+                "<td>" + adjust(response.carbs, qt) + " gr</td>" +
+                "<input hidden name='carbs' value=" + adjust(response.carbs, qt) +">" +
+                "<td>" + adjust(response.protein, qt) + " gr</td>" +
+                "<input hidden name='protein' value=" + adjust(response.protein, qt) +">" +
+                "<td>" + adjust(response.fat, qt) + " gr</td>" +
+                "<input hidden name='fat' value=" + adjust(response.fat, qt) +">" +
                 "</tr>";
                 return document.getElementById('foodresults').innerHTML = tables;
                 }
@@ -87,7 +99,7 @@
             <p class="lead" id="notfound"></p>
             <div class="container p-3">
                 <!-- TODO create table containing food log and post the form there -->
-                <input type="number" name="quantity" class="form-control input-sm" placeholder="Quantity of servings">
+                <input type="number" name="quantity" id="quantity" class="form-control input-sm" min=0 placeholder="Quantity of servings" onchange="foodSearch(foodsearch.value)">
                 <button type="submit" class="btn btn-secondary btn-sm">
                     Add to food log
                 </button>
