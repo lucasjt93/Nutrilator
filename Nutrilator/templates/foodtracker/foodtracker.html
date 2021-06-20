@@ -71,10 +71,12 @@
 
     <h1 class="display-4 p-3" style="color:#249c40">Search our food database!</h1>
     <div class="macroFormWrap">
-        <div class="container p-3">
-            <p class="lead">Daily goal: <b>{{ g.macros['tdee'] | round }} kcal</b></p>
-            <p class="lead">Remaining: <b>n kcal</b></p>
-        </div>
+        {% if g.macros %}
+            <div class="container p-3">
+                <p class="lead">Daily goal: <b>{{ g.macros['tdee'] | round }} kcal</b></p>
+                <p class="lead">Remaining: <b>n kcal</b></p>
+            </div>
+        {% endif %}
         <h3 class="p-3" >Food database:</h3>
         <div class="container p-3">
             <input class="form-control input-sm" type="text" placeholder="Search..." id="foodsearch" onchange="foodSearch(this.value)">
