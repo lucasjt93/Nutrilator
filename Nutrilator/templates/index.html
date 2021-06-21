@@ -59,14 +59,14 @@
 <!-- if logged in -->
   {% if g.user %}
      <div class="user_home">
-       {% if user_data['goal'] %}
+       {% if g.macros %}
        <h1 class="display-4 p-3" style="color:#249c40">Welcome {{ g.user['username'] }}, ready to continue following your goals?</h1>
        <div class="macroFormWrap">
          <p class="lead">Your current goal is to: <b>{{ user_data['goal'] }}</b></p>
          <p class="lead">Your current weight is: <b>{{ user_data['weight'] }} kg</b></p>
          <p class="lead"><b><a href="{{ url_for('calculator.calculator') }}" style="color:#ff9d5c;">Update your progress!</a></b></p>
        <div>
-         <h3 class="p-3" >These are your daily macros:</h3>
+         <h3 class="p-3">These are your daily macros:</h3>
          <table class="table table-bordered">
            <thead class="table-success">
            <tr>
@@ -86,9 +86,50 @@
            </tbody>
          </table>
          <!-- TODO display daily macro intake with chartjs radar chart, retrieve data from food_log table -->
+         <div>
+           <h3 class="p-3">Daily intake:</h3>
+           <div class="table-responsive container clearfix">
+            <canvas id="myChart2" class="table"></canvas>
+           </div>
+           <script>
+             var ctx = document.getElementById('myChart2');
+             var chart = new Chart(ctx, {
+                 responsive: true,
+                 type: 'radar',
+                 data: {
+                    labels: [
+                    'kcal',
+                    'protein',
+                    'fat',
+                    'carbs'
+                    ],
+                   datasets: [{
+                      label: 'My First Dataset',
+                      data: [65, 59, 90, 81, 56, 55, 40],
+                      fill: true,
+                      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                      borderColor: 'rgb(255, 99, 132)',
+                      pointBackgroundColor: 'rgb(255, 99, 132)',
+                      pointBorderColor: '#fff',
+                      pointHoverBackgroundColor: '#fff',
+                      pointHoverBorderColor: 'rgb(255, 99, 132)'
+                    }, {
+                      label: 'My Second Dataset',
+                      data: [28, 48, 40, 19, 96, 27, 100],
+                      fill: true,
+                      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                      borderColor: 'rgb(54, 162, 235)',
+                      pointBackgroundColor: 'rgb(54, 162, 235)',
+                      pointBorderColor: '#fff',
+                      pointHoverBackgroundColor: '#fff',
+                      pointHoverBorderColor: 'rgb(54, 162, 235)'
+                    }]
+                  }});
+           </script>
+         </div>
          <!-- weight track chart -->
-         <h4 class="p-3">Your progress:</h4>
-         <div class="table-responsive">
+         <h3 class="p-3">Your progress:</h3>
+         <div class="table-responsive container clearfix">
           <canvas id="myChart" class="table"></canvas>
          </div>
          <script>

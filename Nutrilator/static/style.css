@@ -22,20 +22,10 @@ a {
     background-color:#ff9d5c;
 }
 
-/* logo.png */
-#logo {
-        width: 30px;
-        height: 30px;
-        line-height: 0;
-        border: 2px solid #000;
-        background-color: #eee;
-        transform: translateY(-10%);
-}
-
 .username {
     font-size:18px;
     font-family: Helvetica;
-    color: green!important;
+    color: #008000!important;
     padding-top:11px;
 }
 
