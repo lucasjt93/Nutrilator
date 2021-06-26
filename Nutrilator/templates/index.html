@@ -78,10 +78,10 @@
            </thead>
            <tbody>
             <tr>
-              <td>{{ user_macros['tdee'] | round }}</td>
-              <td>{{ user_macros['carbo'] | round }} g</td>
-              <td>{{ user_macros['protein'] | round }} g</td>
-              <td>{{ user_macros['fat'] | round }} g</td>
+              <td>{{ g.macros['tdee'] | round }}</td>
+              <td>{{ g.macros['carbo'] | round }} g</td>
+              <td>{{ g.macros['protein'] | round }} g</td>
+              <td>{{ g.macros['fat'] | round }} g</td>
             </tr>
            </tbody>
          </table>
@@ -105,20 +105,30 @@
                  type: 'bar',
                  data: {
                     labels: [
-                    'kcal(scaled)',
+                    'kcal (1:10)',
+                    'carbs',
                     'protein',
-                    'fat',
-                    'carbs'
+                    'fats'
                     ],
                    datasets: [{
                       label: 'Daily Goal',
-                      data: [923, 107, 55, 31],
+                      data: [{{ g.macros['tdee'] / 10 | round  }},
+                             {{ g.macros['carbo'] | round  }},
+                             {{ g.macros['protein'] | round  }},
+                             {{ g.macros['fat'] | round  }}],
                       fill: true,
                       backgroundColor: '#c3e6cb',
                       borderColor: '#249c40'
                     }, {
                       label: 'My Intake',
-                      data: [388.6, 526, 155, 130],
+                      data: {% if g.log['kcal'] %}
+                             [{{ g.log['kcal'] / 10 | round  }},
+                             {{ g.log['carbs'] | round  }},
+                             {{ g.log['protein'] | round  }},
+                             {{ g.log['fat'] | round  }}]
+                             {% else %}
+                             [0, 0, 0, 0]
+                             {% endif %},
                       fill: true,
                       backgroundColor: '#ff9d5c',
                       borderColor: '#ff9d5c'

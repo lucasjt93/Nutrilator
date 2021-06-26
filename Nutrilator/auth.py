@@ -6,6 +6,7 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from Nutrilator.db import get_db
+from datetime import date
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -74,6 +75,8 @@ def login():
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
+    # Retrieve date from datetime api
+    today = date.today()
 
     if user_id is None:
         g.user = None
@@ -83,6 +86,14 @@ def load_logged_in_user():
         ).fetchone()
         g.macros = get_db().execute(
             'SELECT * FROM macros WHERE user_id = ?', (user_id,)
+        ).fetchone()
+        g.log = get_db().execute(
+            ''' SELECT SUM(food_kcal) as kcal, 
+                SUM(food_carbs) as carbs, 
+                SUM(food_protein) as protein, 
+                SUM(food_fat) as fat
+                FROM food_logs WHERE user_id = ? AND date = ?''',
+            (g.user['id'], today,)
         ).fetchone()
 
 

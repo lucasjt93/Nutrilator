@@ -3,6 +3,7 @@ import os
 from flask import Flask, render_template, g
 
 from Nutrilator.db import get_db
+from datetime import date
 
 
 def create_app(test_config=None):
@@ -34,12 +35,11 @@ def create_app(test_config=None):
     @app.route("/")
     def index():
         if g.user:
+            # Retrieve date from datetime api
+            today = date.today()
+
             user_data = get_db().execute(
                 'SELECT * FROM users_data WHERE user_id = ? ORDER BY date desc LIMIT 1', (g.user['id'],)
-            ).fetchone()
-
-            user_macros = get_db().execute(
-                'SELECT * FROM macros WHERE user_id = ?', (g.user['id'],)
             ).fetchone()
 
             weight_data = get_db().execute(
@@ -53,7 +53,6 @@ def create_app(test_config=None):
             return render_template(
                 'index.html',
                 user_data=user_data,
-                user_macros=user_macros,
                 labels=labels,
                 data=data
             )

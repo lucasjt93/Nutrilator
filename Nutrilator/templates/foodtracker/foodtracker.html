@@ -74,7 +74,9 @@
         {% if g.macros %}
             <div class="container p-3">
                 <p class="lead">Daily goal: <b>{{ g.macros['tdee'] | round }} kcal</b></p>
-                <p class="lead">Remaining: <b>n kcal</b></p>
+                {% if g.log['kcal'] %}
+                <p class="lead">Remaining: <b>{{ g.macros['tdee'] - g.log['kcal'] | round}} kcal</b></p>
+                {% endif %}
             </div>
         {% endif %}
         <h3 class="p-3" >Food database:</h3>
@@ -100,7 +102,7 @@
             </div>
             <p class="lead" id="notfound"></p>
             <div class="container p-3">
-                <input type="number" name="quantity" id="quantity" class="form-control input-sm" min=1 placeholder="Quantity of servings" onchange="foodSearch(foodsearch.value)">
+                <input type="number" name="quantity" id="quantity" class="form-control input-sm" min=1 placeholder="Quantity of servings" oninput="foodSearch(foodsearch.value)">
                 <button type="submit" class="btn btn-secondary btn-sm">
                     Add to food log
                 </button>
