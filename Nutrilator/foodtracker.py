@@ -1,7 +1,6 @@
 from flask import (
     Blueprint, flash, jsonify, json, g, redirect, render_template, request, url_for
 )
-from werkzeug.exceptions import abort
 
 import os
 import requests

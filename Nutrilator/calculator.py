@@ -1,7 +1,6 @@
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
-from werkzeug.exceptions import abort
 
 from Nutrilator.auth import login_required
 from Nutrilator.db import get_db
