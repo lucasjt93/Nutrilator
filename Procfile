@@ -1,1 +1,1 @@
-web: gunicorn app:Nutrilator
+web: gunicorn app:app
