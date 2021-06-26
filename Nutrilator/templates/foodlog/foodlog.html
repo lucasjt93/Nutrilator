@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Food log
+{% endblock %}
+
+{% block main %}
+<h1 class="display-4 p-3" style="color:#249c40">{{ g.user['username'] }} historic log:</h1>
+<div class="macroFormWrap">
+    <table class="table table-bordered">
+        <thead class="table-success">
+            <tr>
+                <th>Date</th>
+                <th>Food</th>
+                <th>Quantity</th>
+                <th>Kcal</th>
+                <th>Carbs</th>
+                <th>Protein</th>
+                <th>Fats</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for n in range(user_log | length ) %}
+            <tr>
+                <td>{{ user_log[n].date }}</td>
+                <td>{{ user_log[n].food_name }}</td>
+                <td>{{ user_log[n].quantity }}</td>
+                <td>{{ user_log[n].food_kcal | round }}</td>
+                <td>{{ user_log[n].food_carbs | round }}</td>
+                <td>{{ user_log[n].food_protein | round }}</td>
+                <td>{{ user_log[n].food_fat | round }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

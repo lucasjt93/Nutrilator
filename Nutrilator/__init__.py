@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, g
 
 from Nutrilator.db import get_db
-from datetime import date
+from Nutrilator.auth import login_required
 
 
 def create_app(test_config=None):
@@ -35,8 +35,6 @@ def create_app(test_config=None):
     @app.route("/")
     def index():
         if g.user:
-            # Retrieve date from datetime api
-            today = date.today()
 
             user_data = get_db().execute(
                 'SELECT * FROM users_data WHERE user_id = ? ORDER BY date desc LIMIT 1', (g.user['id'],)
@@ -70,5 +68,14 @@ def create_app(test_config=None):
     # Food tracker bp
     from . import foodtracker
     app.register_blueprint(foodtracker.bp)
+
+    # Food log
+    @app.route("/foodlog")
+    @login_required
+    def foodlog():
+        user_log = get_db().execute(
+            'SELECT * FROM food_logs WHERE user_id = ? ORDER BY date DESC', (g.user['id'],)
+        ).fetchall()
+        return render_template('foodlog/foodlog.html', user_log=user_log)
 
     return app

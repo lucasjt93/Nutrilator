@@ -75,7 +75,7 @@
             <div class="container p-3">
                 <p class="lead">Daily goal: <b>{{ g.macros['tdee'] | round }} kcal</b></p>
                 {% if g.log['kcal'] %}
-                <p class="lead">Remaining: <b>{{ g.macros['tdee'] - g.log['kcal'] | round}} kcal</b></p>
+                <p class="lead">Remaining: <b>{{ g.macros['tdee'] - g.log['kcal'] | round }} kcal</b></p>
                 {% endif %}
             </div>
         {% endif %}
