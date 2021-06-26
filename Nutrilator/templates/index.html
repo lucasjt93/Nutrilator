@@ -87,73 +87,67 @@
          </table>
          <!-- TODO display daily macro intake with chartjs radar chart, retrieve data from food_log table -->
          <div>
-           <h3 class="p-3">Daily intake:</h3>
-           <div class="table-responsive container clearfix">
-            <canvas id="myChart2" class="table"></canvas>
+           <h3 class="p-3">Your Dashboard:</h3>
+           <div class="table-responsive">
+             <div id="canvas-holder" style="display: flex;">
+                <div class="container clearfix">
+                 <canvas id="DailyChart"></canvas>
+                </div>
+               <div class="container clearfix">
+                 <canvas id="WeightChart"></canvas>
+               </div>
+             </div>
            </div>
            <script>
-             var ctx = document.getElementById('myChart2');
+             var ctx = document.getElementById('DailyChart');
              var chart = new Chart(ctx, {
                  responsive: true,
-                 type: 'radar',
+                 type: 'bar',
                  data: {
                     labels: [
-                    'kcal',
+                    'kcal(scaled)',
                     'protein',
                     'fat',
                     'carbs'
                     ],
                    datasets: [{
-                      label: 'My First Dataset',
-                      data: [65, 59, 90, 81, 56, 55, 40],
+                      label: 'Daily Goal',
+                      data: [923, 107, 55, 31],
                       fill: true,
-                      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                      borderColor: 'rgb(255, 99, 132)',
-                      pointBackgroundColor: 'rgb(255, 99, 132)',
-                      pointBorderColor: '#fff',
-                      pointHoverBackgroundColor: '#fff',
-                      pointHoverBorderColor: 'rgb(255, 99, 132)'
+                      backgroundColor: '#c3e6cb',
+                      borderColor: '#249c40'
                     }, {
-                      label: 'My Second Dataset',
-                      data: [28, 48, 40, 19, 96, 27, 100],
+                      label: 'My Intake',
+                      data: [388.6, 526, 155, 130],
                       fill: true,
-                      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                      borderColor: 'rgb(54, 162, 235)',
-                      pointBackgroundColor: 'rgb(54, 162, 235)',
-                      pointBorderColor: '#fff',
-                      pointHoverBackgroundColor: '#fff',
-                      pointHoverBorderColor: 'rgb(54, 162, 235)'
+                      backgroundColor: '#ff9d5c',
+                      borderColor: '#ff9d5c'
                     }]
                   }});
-           </script>
-         </div>
-         <!-- weight track chart -->
-         <h3 class="p-3">Your progress:</h3>
-         <div class="table-responsive container clearfix">
-          <canvas id="myChart" class="table"></canvas>
-         </div>
-         <script>
-         var ctx = document.getElementById('myChart');
-         var chart = new Chart(ctx, {
-            responsive: true,
-            type: 'line',
-            data: {
-              labels: {{ labels | tojson }},
-              datasets: [{
-                label: 'Weight/time',
-                data: {{ data | tojson }},
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-              }],
-            options: {
-             responsive: true,
-             maintainAspectRatio: false
-             }
-            }});
-         </script>
-         </div>
+
+             var ctx = document.getElementById('WeightChart');
+             var chart = new Chart(ctx, {
+                responsive: true,
+                type: 'line',
+                data: {
+                  labels: {{ labels | tojson }},
+                  datasets: [{
+                    label: 'Weight/time',
+                    data: {{ data | tojson }},
+                    fill: false,
+                    borderColor: '#249c40',
+                    backgroundColor: '#c3e6cb',
+                    tension: 0.1
+                  }],
+                options: {
+                 responsive: true,
+                 maintainAspectRatio: false
+                 }
+                }});
+             </script>
+            </div>
        </div>
+         </div>
        <!-- if user hasnt logged any data to the db -->
        {% else %}
          <h3 class="display-4 p-3">Welcome {{ g.user['username'] }}, ready to start achieving your goals?</h3>

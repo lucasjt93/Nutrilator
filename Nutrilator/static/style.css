@@ -102,7 +102,6 @@ a {
 
 /* index chart */
 .table-responsive {
-    position: relative;
     margin: auto;
-    width: 80vw;
+    width: auto;
 }
