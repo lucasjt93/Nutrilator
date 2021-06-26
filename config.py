@@ -1,3 +1,3 @@
-import os
+from Nutrilator import nutrilator
 
-DATABASE = os.getenv("DATABASE_URL")
+nutrilator.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123456@localhost/lexus'
