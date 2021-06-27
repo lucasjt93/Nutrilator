@@ -1,3 +1,5 @@
-from Nutrilator import nutrilator
+import os
 
-nutrilator.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123456@localhost/lexus'
+from flask import current_app as app
+
+app.config(DATABASE=os.getenv("DATABASE_URL"))
