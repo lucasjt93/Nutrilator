@@ -2,3 +2,5 @@ flask
 gunicorn
 psycopg2
 requests
+flask-SQLAlchemy
+cs50

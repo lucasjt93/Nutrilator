@@ -1,18 +1,25 @@
 import sqlite3
-
+import os
+import cs50
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
 
+env = os.getenv("FLASK_ENV")
 
 def get_db():
-    if 'db' not in g:
-        g.db = sqlite3.connect(
+    if env == "development":
+        g.db = cs50.SQL(
             current_app.config['DATABASE'],
             detect_types=sqlite3.PARSE_DECLTYPES
         )
         g.db.row_factory = sqlite3.Row
-
+    elif env == "production":
+        uri = os.getenv("DATABASE_URL")  # or other relevant config var
+        if uri.startswith("postgres://"):
+            uri = uri.replace("postgres://", "postgresql://", 1)
+        # rest of connection code using the connection string `uri`
+        g.db = cs50.SQL(uri)
     return g.db
 
 
@@ -20,7 +27,10 @@ def close_db(e=None):
     db = g.pop('db', None)
 
     if db is not None:
-        db.close()
+        if env == "development":
+            db.close()
+        elif env == "production":
+            pass
 
 
 def init_db():

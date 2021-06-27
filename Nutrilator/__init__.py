@@ -21,6 +21,8 @@ def create_app(test_config=None):
         # Load the test config if passed in
         app.config.from_mapping(test_config)
 
+    print(app.config)
+
     # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
@@ -81,4 +83,5 @@ def create_app(test_config=None):
     return app
 
 
+# TODO create wsgi.py and put this line and modify Procfile
 nutrilator = create_app()
