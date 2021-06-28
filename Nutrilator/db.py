@@ -5,21 +5,25 @@ import click
 from flask import current_app, g
 from flask.cli import with_appcontext
 
+
+# Get flask env from env variable
 env = os.getenv("FLASK_ENV")
 
+
 def get_db():
-    if env == "development":
-        g.db = cs50.SQL(
-            current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
-        )
-        g.db.row_factory = sqlite3.Row
-    elif env == "production":
-        uri = os.getenv("DATABASE_URL")  # or other relevant config var
-        if uri.startswith("postgres://"):
-            uri = uri.replace("postgres://", "postgresql://", 1)
-        # rest of connection code using the connection string `uri`
-        g.db = cs50.SQL(uri)
+    if 'db' not in g:
+        if env == "production":
+            uri = os.getenv("DATABASE_URL")  # or other relevant config var
+            if uri.startswith("postgres://"):
+                uri = uri.replace("postgres://", "postgresql://", 1)
+            # rest of connection code using the connection string `uri`
+            g.db = cs50.SQL(uri)
+        else:
+            g.db = sqlite3.connect(
+                current_app.config['DATABASE'],
+                detect_types=sqlite3.PARSE_DECLTYPES
+            )
+            g.db.row_factory = sqlite3.Row
     return g.db
 
 
