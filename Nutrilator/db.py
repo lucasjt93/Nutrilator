@@ -12,6 +12,7 @@ env = os.getenv("FLASK_ENV")
 
 def get_db():
     if 'db' not in g:
+        # Connect to heroku psql
         if env == "production":
             uri = os.getenv("DATABASE_URL")  # or other relevant config var
             if uri.startswith("postgres://"):
@@ -19,6 +20,7 @@ def get_db():
             # rest of connection code using the connection string `uri`
             g.db = cs50.SQL(uri)
         else:
+            # Connect to local sqlite3
             g.db = sqlite3.connect(
                 current_app.config['DATABASE'],
                 detect_types=sqlite3.PARSE_DECLTYPES
@@ -34,7 +36,7 @@ def close_db(e=None):
         if env == "development":
             db.close()
         elif env == "production":
-            pass
+            db._disconnect()
 
 
 def init_db():

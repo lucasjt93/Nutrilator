@@ -1,5 +1,5 @@
 import functools
-
+import os
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -9,8 +9,10 @@ from Nutrilator.db import get_db
 from datetime import date
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
+# Get flask env from env variable
+env = os.getenv("FLASK_ENV")
 
-
+#TODO finish logic to write in postgress db
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
@@ -18,22 +20,23 @@ def register():
         password = request.form['password']
         db = get_db()
         error = None
+        check_user = db.execute(
+            'SELECT id FROM users WHERE username = ?', (username,)
+        )
 
         if not username:
             error = 'Must provide username'
         elif not password:
             error = 'Must provide password'
-        elif db.execute(
-            'SELECT id FROM users WHERE username = ?', (username,)
-        ).fetchone() is not None:
+        elif check_user:
             error = f'User {username} is already registered, sorry!'
 
         if error is None:   # Register the user
             db.execute(
                 'INSERT INTO users (username, password) VALUES (?, ?)',
-                (username, generate_password_hash(password))
+                username, generate_password_hash(password)
             )
-            db.commit()
+
             flash('User correctly registered', category='message')
             return redirect(url_for('auth.login'))
         else:
@@ -52,18 +55,19 @@ def login():
         error = None
         user = db.execute(
             'SELECT * FROM users WHERE username = ?', (username,)
-        ).fetchone()
+        )
+        print(user)
 
         if user is None:
             error = 'Incorrect username'
-        elif not check_password_hash(user['password'], password):
+        elif not check_password_hash(user[0].get('password'), password):
             error = 'Incorrect password'
 
         if error is None:
             # First clear the session
             session.clear()
             # Remember user logged in
-            session['user_id'] = user['id']
+            session['user_id'] = user[0].get('id')
             return redirect(url_for('index'))
         else:
             flash(error, category='error')
@@ -78,6 +82,7 @@ def load_logged_in_user():
     # Retrieve date from datetime api
     today = date.today()
 
+    # TODO finish the migration to new DB here
     if user_id is None:
         g.user = None
     else:
