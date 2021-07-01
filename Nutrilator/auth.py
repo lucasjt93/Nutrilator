@@ -12,7 +12,7 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 # Get flask env from env variable
 env = os.getenv("FLASK_ENV")
 
-#TODO finish logic to write in postgress db
+
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
@@ -21,7 +21,7 @@ def register():
         db = get_db()
         error = None
         check_user = db.execute(
-            'SELECT id FROM users WHERE username = ?', (username,)
+            'SELECT id FROM users WHERE username = ?', username
         )
 
         if not username:
@@ -54,20 +54,19 @@ def login():
         db = get_db()
         error = None
         user = db.execute(
-            'SELECT * FROM users WHERE username = ?', (username,)
-        )
-        print(user)
+            'SELECT * FROM users WHERE username = ?', username
+        )[0]
 
         if user is None:
             error = 'Incorrect username'
-        elif not check_password_hash(user[0].get('password'), password):
+        elif not check_password_hash(user.get('password'), password):
             error = 'Incorrect password'
 
         if error is None:
             # First clear the session
             session.clear()
             # Remember user logged in
-            session['user_id'] = user[0].get('id')
+            session['user_id'] = user.get('id')
             return redirect(url_for('index'))
         else:
             flash(error, category='error')
@@ -82,24 +81,32 @@ def load_logged_in_user():
     # Retrieve date from datetime api
     today = date.today()
 
-    # TODO finish the migration to new DB here
     if user_id is None:
         g.user = None
     else:
+        # User id to g
         g.user = get_db().execute(
-            'SELECT * FROM users WHERE id = ?', (user_id,)
-        ).fetchone()
-        g.macros = get_db().execute(
-            'SELECT * FROM macros WHERE user_id = ?', (user_id,)
-        ).fetchone()
+            'SELECT * FROM users WHERE id = ?', user_id
+        )[0]
+
+        # Macros to g
+        macros = get_db().execute(
+            'SELECT * FROM macros WHERE user_id = ?', user_id,
+        )
+        if macros:
+            g.macros = macros[0]
+        else:
+            g.macros = None
+
+        # Log to g
         g.log = get_db().execute(
             ''' SELECT SUM(food_kcal) as kcal, 
                 SUM(food_carbs) as carbs, 
                 SUM(food_protein) as protein, 
                 SUM(food_fat) as fat
                 FROM food_logs WHERE user_id = ? AND date = ?''',
-            (g.user['id'], today,)
-        ).fetchone()
+            g.user['id'], today
+        )[0]
 
 
 @bp.route('/logout')

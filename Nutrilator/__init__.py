@@ -37,7 +37,7 @@ def create_app(test_config=None):
     @app.route("/")
     def index():
         if g.user:
-
+            # TODO Continue logic for postgres here
             user_data = get_db().execute(
                 'SELECT * FROM users_data WHERE user_id = ? ORDER BY date desc LIMIT 1', (g.user['id'],)
             ).fetchone()
