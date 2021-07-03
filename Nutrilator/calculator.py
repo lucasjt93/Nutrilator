@@ -13,8 +13,8 @@ bp = Blueprint('calculator', __name__)
 @login_required
 def calculator():
     # get username + message
-    username = get_db().execute('SELECT username FROM users WHERE id = ?', (g.user['id'],)).fetchone()
-    messages = [f'Hi {username[0]}, calculate your macros!', f'Hi {username[0]}, update your progress!']
+    username = g.user['username']
+    messages = [f'Hi {username}, calculate your macros!', f'Hi {username}, update your progress!']
     timestamp = str(datetime.now())
 
     if request.method == 'POST':
@@ -63,17 +63,15 @@ def calculator():
 
         # save user data into db
         db.execute(
-            'INSERT INTO users_data VALUES (?, ?, ?, ?, ?, ?, ?)', (
-                g.user['id'],
-                required['age'],
-                required['gender'],
-                required['weight'],
-                required['height'],
-                required['goal'],
-                timestamp
-            )
+            'INSERT INTO users_data VALUES (?, ?, ?, ?, ?, ?, ?)',
+            g.user['id'],
+            required['age'],
+            required['gender'],
+            required['weight'],
+            required['height'],
+            required['goal'],
+            timestamp
         )
-        db.commit()
 
         # calculate initial macros per kcal
         protein = 0.825 * (required['weight']/0.453592)
@@ -81,38 +79,31 @@ def calculator():
         carbo = (TDEE - (protein * 4) - (fat * 9)) / 4
 
         # save macros into db
-        user_macros = get_db().execute(
-            'SELECT * FROM macros WHERE user_id = ?', (g.user['id'],)
-        ).fetchone()
 
-        if not user_macros:
+        if not g.macros:
             db.execute(
-                'INSERT INTO macros VALUES (?, ?, ?, ?, ?)', (
-                    g.user['id'],
-                    TDEE,
-                    protein,
-                    carbo,
-                    fat
-                )
+                'INSERT INTO macros VALUES (?, ?, ?, ?, ?)',
+                g.user['id'],
+                TDEE,
+                protein,
+                carbo,
+                fat
             )
-            db.commit()
         else:
             db.execute(
-                'UPDATE macros SET tdee = ?, protein = ?, carbo = ?, fat = ? WHERE user_id = ?', (
-                    TDEE,
-                    protein,
-                    carbo,
-                    fat,
-                    g.user['id']
-                )
+                'UPDATE macros SET tdee = ?, protein = ?, carbo = ?, fat = ? WHERE user_id = ?',
+                TDEE,
+                protein,
+                carbo,
+                fat,
+                g.user['id']
             )
-            db.commit()
 
         return redirect(url_for('index'))
 
     # User data to determine template
     user_data = get_db().execute(
-        'SELECT * FROM users_data WHERE user_id = ?', (g.user['id'],)
-    ).fetchone()
+        'SELECT * FROM users_data WHERE user_id = ?', g.user['id']
+    )[0]
 
     return render_template('calculator/calculator.html', messages=messages, user_data=user_data)

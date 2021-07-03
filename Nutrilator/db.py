@@ -31,11 +31,14 @@ def get_db():
 
 def close_db(e=None):
     db = g.pop('db', None)
+    print(f"{db} CLOSING")
 
     if db is not None:
         if env == "development":
+            print("BAD")
             db.close()
         elif env == "production":
+            print("GOOD")
             db._disconnect()
 
 

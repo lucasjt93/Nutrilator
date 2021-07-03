@@ -37,14 +37,13 @@ def create_app(test_config=None):
     @app.route("/")
     def index():
         if g.user:
-            # TODO Continue logic for postgres here
             user_data = get_db().execute(
-                'SELECT * FROM users_data WHERE user_id = ? ORDER BY date desc LIMIT 1', (g.user['id'],)
-            ).fetchone()
+                'SELECT * FROM users_data WHERE user_id = ? ORDER BY date desc LIMIT 1', g.user['id']
+            )[0]
 
             weight_data = get_db().execute(
-                'SELECT weight, date FROM users_data WHERE user_id = ?', (g.user['id'],)
-            ).fetchall()
+                'SELECT weight, date FROM users_data WHERE user_id = ?', g.user['id']
+            )
 
             weight_data = [dict(row) for row in weight_data]
             labels = [weight_data[n]['date'][:10] for n in range(len(weight_data))]
@@ -76,8 +75,8 @@ def create_app(test_config=None):
     @login_required
     def foodlog():
         user_log = get_db().execute(
-            'SELECT * FROM food_logs WHERE user_id = ? ORDER BY date DESC', (g.user['id'],)
-        ).fetchall()
+            'SELECT * FROM food_logs WHERE user_id = ? ORDER BY date DESC', g.user['id']
+        )
         return render_template('foodlog/foodlog.html', user_log=user_log)
 
     return app
