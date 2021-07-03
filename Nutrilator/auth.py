@@ -18,9 +18,8 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
         error = None
-        check_user = db.execute(
+        check_user = g.db.execute(
             'SELECT id FROM users WHERE username = ?', username
         )
 
@@ -32,7 +31,7 @@ def register():
             error = f'User {username} is already registered, sorry!'
 
         if error is None:   # Register the user
-            db.execute(
+            g.db.execute(
                 'INSERT INTO users (username, password) VALUES (?, ?)',
                 username, generate_password_hash(password)
             )
@@ -51,9 +50,8 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
         error = None
-        user = db.execute(
+        user = g.db.execute(
             'SELECT * FROM users WHERE username = ?', username
         )
 
@@ -84,13 +82,14 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
+        db = get_db()
         # User id to g
-        g.user = get_db().execute(
+        g.user = db.execute(
             'SELECT * FROM users WHERE id = ?', user_id
         )[0]
 
         # Macros to g
-        macros = get_db().execute(
+        macros = db.execute(
             'SELECT * FROM macros WHERE user_id = ?', user_id,
         )
         if macros:
@@ -99,7 +98,7 @@ def load_logged_in_user():
             g.macros = None
 
         # Log to g
-        g.log = get_db().execute(
+        g.log = db.execute(
             ''' SELECT SUM(food_kcal) as kcal, 
                 SUM(food_carbs) as carbs, 
                 SUM(food_protein) as protein, 
