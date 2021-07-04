@@ -45,6 +45,7 @@ def close_db(e=None):
                 db_name[-14:],
                 'idle'
             )"""
+            db._disconnect()
 
 
 def init_db():
