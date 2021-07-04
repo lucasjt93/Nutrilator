@@ -41,9 +41,9 @@ def close_db(e=None):
             db.close()
         elif env == "production":
             print("GOOD")
-            utc_time = datetime.utcnow() + timedelta(0,30)
+            utc_time = datetime.utcnow() + timedelta(0,1)
             db.execute(
-                'SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = ? AND state = ? AND state_change < ?',
+                'SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = ? AND state = ? AND state_change > ?',
                 db_name[-14:],
                 'idle',
                 utc_time
