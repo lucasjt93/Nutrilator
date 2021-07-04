@@ -78,7 +78,7 @@ def create_app(test_config=None):
             'SELECT * FROM food_logs WHERE user_id = ? ORDER BY date DESC', g.user['id']
         )
         if not user_log:
-            user_log = []
+            user_log = 'e'
         return render_template('foodlog/foodlog.html', user_log=user_log)
 
     return app
