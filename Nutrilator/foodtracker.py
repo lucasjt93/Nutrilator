@@ -54,7 +54,6 @@ def foodtracker():
             food_data['food_fat'],
             food_data['quantity']
         )
-        db.commit()
 
         return redirect(url_for('index'))
 
