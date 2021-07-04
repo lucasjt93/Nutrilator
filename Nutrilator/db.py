@@ -39,7 +39,7 @@ def close_db(e=None):
             db.close()
         elif env == "production":
             print("GOOD")
-            db.__del__()
+            del(db)
 
 
 def init_db():
