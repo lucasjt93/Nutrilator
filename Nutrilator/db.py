@@ -40,11 +40,11 @@ def close_db(e=None):
             db.close()
         elif env == "production":
             print("GOOD")
-            db.execute(
+            """db.execute(
                 'SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = ? AND state = ?',
                 db_name[-14:],
                 'idle'
-            )
+            )"""
 
 
 def init_db():
