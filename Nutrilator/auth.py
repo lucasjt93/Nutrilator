@@ -5,7 +5,7 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from Nutrilator.db import db
+from Nutrilator.db import get_db
 from datetime import date
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -75,6 +75,7 @@ def login():
 
 @bp.before_app_request
 def load_logged_in_user():
+
     user_id = session.get('user_id')
     # Retrieve date from datetime api
     today = date.today()
@@ -106,6 +107,7 @@ def load_logged_in_user():
                 FROM food_logs WHERE user_id = ? AND date = ?''',
             g.user['id'], today
         )[0]
+
 
 
 @bp.route('/logout')
