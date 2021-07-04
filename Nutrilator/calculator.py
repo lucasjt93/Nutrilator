@@ -103,6 +103,6 @@ def calculator():
     # User data to determine template
     user_data = get_db().execute(
         'SELECT * FROM users_data WHERE user_id = ?', g.user['id']
-    )
+    )[0]
 
     return render_template('calculator/calculator.html', messages=messages, user_data=user_data)
