@@ -61,7 +61,7 @@ def foodtracker():
     return render_template('foodtracker/foodtracker.html')
 
 
-@bp.route('/foodtracker/search', methods='POST')
+@bp.route('/foodtracker/search', methods=['POST'])
 def search():
     # Look up for food in Nutritionix api
     if request.method == 'POST':
