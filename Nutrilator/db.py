@@ -8,6 +8,7 @@ from flask.cli import with_appcontext
 
 # Get flask env from env variable
 env = os.getenv("FLASK_ENV")
+db_name = os.getenv("DATABASE_URL")
 
 
 def get_db():
@@ -39,7 +40,11 @@ def close_db(e=None):
             db.close()
         elif env == "production":
             print("GOOD")
-            del(db)
+            db.execute(
+                'SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = ? AND state = ?',
+                db_name[-14:],
+                'idle'
+            )
 
 
 def init_db():
