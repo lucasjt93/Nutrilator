@@ -43,17 +43,16 @@ def foodtracker():
 
         # Save into db
         db.execute(
-            'INSERT INTO food_logs VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', (
-                g.user['id'],
-                today,
-                food_data['food_name'],
-                food_data['food_weight'],
-                food_data['food_kcal'],
-                food_data['food_carbs'],
-                food_data['food_protein'],
-                food_data['food_fat'],
-                food_data['quantity']
-            )
+            'INSERT INTO food_logs VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            g.user['id'],
+            today,
+            food_data['food_name'],
+            food_data['food_weight'],
+            food_data['food_kcal'],
+            food_data['food_carbs'],
+            food_data['food_protein'],
+            food_data['food_fat'],
+            food_data['quantity']
         )
         db.commit()
 
@@ -62,7 +61,7 @@ def foodtracker():
     return render_template('foodtracker/foodtracker.html')
 
 
-@bp.route('/foodtracker/search', methods=('GET', 'POST'))
+@bp.route('/foodtracker/search', methods='POST')
 def search():
     # Look up for food in Nutritionix api
     if request.method == 'POST':
@@ -71,7 +70,7 @@ def search():
         # Contact API
         try:
             url = f"https://trackapi.nutritionix.com/v2/natural/nutrients"
-            json_data = {"query" : data}
+            json_data = {"query": data}
             headers = {
                 "x-app-id": os.environ.get("APP_ID"),
                 "x-app-key": os.environ.get("API_KEY"),
