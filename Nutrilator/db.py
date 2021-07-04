@@ -2,6 +2,7 @@ import sqlite3
 import os
 import cs50
 import click
+from datetime import datetime, timedelta
 from flask import current_app, g
 from flask.cli import with_appcontext
 
@@ -40,12 +41,13 @@ def close_db(e=None):
             db.close()
         elif env == "production":
             print("GOOD")
-            """db.execute(
-                'SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = ? AND state = ?',
+            utc_time = datetime.utcnow() + timedelta(0,20)
+            db.execute(
+                'SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = ? AND state = ? AND state_change > ?',
                 db_name[-14:],
-                'idle'
-            )"""
-            db._disconnect()
+                'idle',
+                utc_time
+            )
 
 
 def init_db():
