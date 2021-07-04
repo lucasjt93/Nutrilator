@@ -19,7 +19,7 @@ def register():
         username = request.form['username']
         password = request.form['password']
         error = None
-        check_user = g.db.execute(
+        check_user = get_db().execute(
             'SELECT id FROM users WHERE username = ?', username
         )
 
@@ -31,7 +31,7 @@ def register():
             error = f'User {username} is already registered, sorry!'
 
         if error is None:   # Register the user
-            g.db.execute(
+            get_db().execute(
                 'INSERT INTO users (username, password) VALUES (?, ?)',
                 username, generate_password_hash(password)
             )
@@ -51,7 +51,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         error = None
-        user = g.db.execute(
+        user = get_db().execute(
             'SELECT * FROM users WHERE username = ?', username
         )
 
@@ -83,14 +83,13 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        db = get_db()
         # User id to g
-        g.user = db.execute(
+        g.user = get_db().execute(
             'SELECT * FROM users WHERE id = ?', user_id
         )[0]
 
         # Macros to g
-        macros = db.execute(
+        macros = get_db().execute(
             'SELECT * FROM macros WHERE user_id = ?', user_id,
         )
         if macros:
@@ -99,7 +98,7 @@ def load_logged_in_user():
             g.macros = None
 
         # Log to g
-        g.log = db.execute(
+        g.log = get_db().execute(
             ''' SELECT SUM(food_kcal) as kcal, 
                 SUM(food_carbs) as carbs, 
                 SUM(food_protein) as protein, 

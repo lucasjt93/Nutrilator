@@ -3,6 +3,7 @@ from flask import (
 )
 
 from Nutrilator.auth import login_required
+from Nutrilator.db import get_db
 from datetime import datetime
 
 bp = Blueprint('calculator', __name__)
@@ -17,7 +18,7 @@ def calculator():
     timestamp = str(datetime.now())
 
     if request.method == 'POST':
-        db = g.db
+        db = get_db()
 
         # define required fields
         required = {
@@ -97,11 +98,10 @@ def calculator():
                 fat,
                 g.user['id']
             )
-
         return redirect(url_for('index'))
 
     # User data to determine template
-    user_data = g.db.execute(
+    user_data = get_db().execute(
         'SELECT * FROM users_data WHERE user_id = ?', g.user['id']
     )[0]
 

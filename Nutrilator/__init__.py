@@ -37,11 +37,11 @@ def create_app(test_config=None):
     @app.route("/")
     def index():
         if g.user:
-            user_data = g.db.execute(
+            user_data = get_db().execute(
                 'SELECT * FROM users_data WHERE user_id = ? ORDER BY date desc LIMIT 1', g.user['id']
             )[0]
 
-            weight_data = g.db.execute(
+            weight_data = get_db().execute(
                 'SELECT weight, date FROM users_data WHERE user_id = ?', g.user['id']
             )
 
@@ -74,7 +74,7 @@ def create_app(test_config=None):
     @app.route("/foodlog")
     @login_required
     def foodlog():
-        user_log = g.db.execute(
+        user_log = get_db().execute(
             'SELECT * FROM food_logs WHERE user_id = ? ORDER BY date DESC', g.user['id']
         )
         return render_template('foodlog/foodlog.html', user_log=user_log)
