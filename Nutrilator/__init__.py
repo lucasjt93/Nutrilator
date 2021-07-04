@@ -80,8 +80,6 @@ def create_app(test_config=None):
         user_log = get_db().execute(
             'SELECT * FROM food_logs WHERE user_id = ? ORDER BY date DESC', g.user['id']
         )
-        if user_log:
-            user_log = user_log[0]
         return render_template('foodlog/foodlog.html', user_log=user_log)
 
     return app
