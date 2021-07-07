@@ -1,7 +1,9 @@
 # Nutrilator
-
 ## Organize your meals to achieve your Macros!
 Track your macros and organize your meanplan with this Web app! The goal of this app is to help you with your calories intake/daily macros calculation to achieve a healthier lifestyle.
+
+### Live demo
+- https://www.youtube.com/watch?v=fFwGThafl6w&ab_channel=LucasToledo
 
 ### Macro calculator
 - Input your height, weight, age, activity level.
@@ -18,6 +20,12 @@ Track your macros and organize your meanplan with this Web app! The goal of this
 
 ### Food log
 - Display your historic food log.
+
+## Requirements
+Please check requirements.txt
+
+
+
 
 ## Tech
 This web-app is built in Flask and hosted in Heroku at https://nutrilator.herokuapp.com/. Try it!
