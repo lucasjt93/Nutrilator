@@ -16,7 +16,9 @@ def get_db():
     if 'db' not in g:
         # Connect to heroku psql
         if env == "production":
-            uri = os.getenv("DATABASE_URL")  # or other relevant config var
+
+            # Heroku solution for postgres change of domain
+            uri = os.getenv("DATABASE_URL")
             if uri.startswith("postgres://"):
                 uri = uri.replace("postgres://", "postgresql://", 1)
             # rest of connection code using the connection string `uri`
@@ -32,16 +34,16 @@ def get_db():
 
 
 def close_db(e=None):
+    # Get db from g
     db = g.pop('db', None)
-    print(f"{db} CLOSING")
 
+    # Env determination for closing
     if db is not None:
         if env == "development":
-            print("BAD")
             db.close()
         elif env == "production":
-            print("GOOD")
-            utc_time = datetime.utcnow() - timedelta(0,10)
+            # Workaround for fixing connection limit in postgres with Heroku free account
+            utc_time = datetime.utcnow() - timedelta(0, 10)
             db.execute(
                 'SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = ? AND state = ? AND state_change < ?',
                 db_name[-14:],

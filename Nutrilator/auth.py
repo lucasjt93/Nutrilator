@@ -9,6 +9,7 @@ from Nutrilator.db import get_db
 from datetime import date
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
+
 # Get flask env from env variable
 env = os.getenv("FLASK_ENV")
 
@@ -19,10 +20,12 @@ def register():
         username = request.form['username']
         password = request.form['password']
         error = None
+
+        # Check if user exists
         check_user = get_db().execute(
             'SELECT id FROM users WHERE username = ?', username
         )
-
+        # Error checking
         if not username:
             error = 'Must provide username'
         elif not password:
@@ -30,7 +33,8 @@ def register():
         elif check_user:
             error = f'User {username} is already registered, sorry!'
 
-        if error is None:   # Register the user
+        # Register the user
+        if error is None:
             get_db().execute(
                 'INSERT INTO users (username, password) VALUES (?, ?)',
                 username, generate_password_hash(password)

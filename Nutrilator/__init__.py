@@ -21,8 +21,6 @@ def create_app(test_config=None):
         # Load the test config if passed in
         app.config.from_mapping(test_config)
 
-    print(app.config)
-
     # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
@@ -37,17 +35,19 @@ def create_app(test_config=None):
     @app.route("/")
     def index():
         if g.user:
+            # Get user data
             user_data = get_db().execute(
                 'SELECT * FROM users_data WHERE user_id = ? ORDER BY date desc LIMIT 1', g.user['id']
             )
             if user_data:
                 user_data = user_data[0]
 
-
+            # Get weight data
             weight_data = get_db().execute(
                 'SELECT weight, date FROM users_data WHERE user_id = ?', g.user['id']
             )
 
+            # Data set for chartjs
             weight_data = [dict(row) for row in weight_data]
             labels = [weight_data[n]['date'][:10] for n in range(len(weight_data))]
             data = [weight_data[n]['weight'] for n in range(len(weight_data))]
@@ -77,6 +77,7 @@ def create_app(test_config=None):
     @app.route("/foodlog")
     @login_required
     def foodlog():
+        # Retrieve history of all his foods
         user_log = get_db().execute(
             'SELECT * FROM food_logs WHERE user_id = ? ORDER BY date DESC', g.user['id']
         )
@@ -85,5 +86,5 @@ def create_app(test_config=None):
     return app
 
 
-# TODO create wsgi.py and put this line and modify Procfile
+# For WSGI in Procfile
 nutrilator = create_app()
