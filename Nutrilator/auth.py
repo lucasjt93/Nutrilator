@@ -79,20 +79,17 @@ def login():
 
 @bp.before_app_request
 def load_logged_in_user():
-
     user_id = session.get('user_id')
-    # Retrieve date from datetime api
-    today = date.today()
 
     if user_id is None:
         g.user = None
     else:
-        # User id to g
+        # User id to flask global variable
         g.user = get_db().execute(
             'SELECT * FROM users WHERE id = ?', user_id
         )[0]
 
-        # Macros to g
+        # Macros to flask global variable
         macros = get_db().execute(
             'SELECT * FROM macros WHERE user_id = ?', user_id,
         )
@@ -101,14 +98,14 @@ def load_logged_in_user():
         else:
             g.macros = None
 
-        # Log to g
+        # Log to flask global variable
         g.log = get_db().execute(
             ''' SELECT SUM(food_kcal) as kcal, 
                 SUM(food_carbs) as carbs, 
                 SUM(food_protein) as protein, 
                 SUM(food_fat) as fat
                 FROM food_logs WHERE user_id = ? AND date = ?''',
-            g.user['id'], today
+            g.user['id'], date.today()
         )[0]
 
 
