@@ -3,7 +3,7 @@
 Track your macros and organize your meanplan with this Web app! The goal of this app is to help you with your calories intake/daily macros calculation to achieve a healthier lifestyle.
 
 ### Live demo
-- https://www.youtube.com/watch?v=fFwGThafl6w&ab_channel=LucasToledo
+- https://nutrilator.herokuapp.com/
 
 ### Macro calculator
 - Input your height, weight, age, activity level.
